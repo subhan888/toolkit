@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VAT Calculator | Free UK VAT Calculator | Add/Remove VAT | ToolkitProo</title>
+    <meta name="description" content="Free UK VAT calculator to add or remove VAT from prices. Calculate VAT at 20% standard rate, 5% reduced rate, or 0% zero rate instantly.">
+    <meta name="keywords" content="VAT calculator, UK VAT calculator, add VAT, remove VAT, VAT calculation, value added tax">
+    <meta name="author" content="John Smith">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://toolkitproo.online/tools/vat-calculator.html">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="VAT Calculator | Free UK VAT Calculator">
+    <meta property="og:description" content="Free UK VAT calculator to add or remove VAT from prices instantly.">
+    <meta property="og:url" content="https://toolkitproo.online/tools/vat-calculator.html">
+    <meta property="og:type" content="website">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="VAT Calculator | ToolkitProo">
+    <meta name="twitter:description" content="Free UK VAT calculator to add or remove VAT from prices.">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="https://i.ibb.co/Dg9Nbkty/toolkitproo-logo.png">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="../index.html" class="logo">
+                <img src="https://i.ibb.co/Dg9Nbkty/toolkitproo-logo.png" alt="ToolkitProo Logo">
+                ToolkitProo
+            </a>
+            <ul class="nav-links">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../tools.html">Tools</a></li>
+                <li><a href="../blog.html">Blog</a></li>
+                <li><a href="../about.html">About</a></li>
+                <li><a href="../contact.html">Contact</a></li>
+            </ul>
+            <button class="mobile-menu-btn" aria-label="Toggle menu">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Breadcrumbs -->
+    <nav class="breadcrumbs">
+        <div class="container">
+            <ol>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../tools.html">Tools</a></li>
+                <li>VAT Calculator</li>
+            </ol>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" style="padding: 3rem 0;">
+        <div class="container">
+            <div class="hero-content">
+                <h1>VAT Calculator</h1>
+                <p>Quickly add or remove VAT from any price. Supports UK standard (20%), reduced (5%), and zero rates.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Calculator Section -->
+    <section class="calculator-section">
+        <div class="container">
+            <div class="calculator-container">
+                <!-- Calculator Form -->
+                <div class="calculator-form">
+                    <h3>Calculate VAT</h3>
+                    <form id="vatForm">
+                        <div class="form-group">
+                            <label for="vatAmount">Amount (£)</label>
+                            <input type="number" id="vatAmount" placeholder="100" min="0" step="0.01" required oninput="calculateVAT()">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="vatRate">VAT Rate</label>
+                            <select id="vatRate" onchange="calculateVAT()">
+                                <option value="20" selected>20% Standard Rate</option>
+                                <option value="5">5% Reduced Rate</option>
+                                <option value="0">0% Zero Rate</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Calculation Type</label>
+                            <div style="display: flex; gap: 1rem; margin-top: 0.5rem;">
+                                <label style="display: flex; align-items: center; gap: 0.5rem; font-weight: normal; cursor: pointer;">
+                                    <input type="radio" name="calcType" value="add" checked onchange="calculateVAT()">
+                                    Add VAT
+                                </label>
+                                <label style="display: flex; align-items: center; gap: 0.5rem; font-weight: normal; cursor: pointer;">
+                                    <input type="radio" name="calcType" value="remove" onchange="calculateVAT()">
+                                    Remove VAT
+                                </label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Results -->
+                <div class="calculator-result" id="resultSection">
+                    <h3>VAT Calculation Results</h3>
+                    
+                    <div style="margin-bottom: 2rem;">
+                        <div class="result-label">Net Amount (Excl. VAT)</div>
+                        <div class="result-value" style="font-size: 1.75rem;" id="netAmount">£0.00</div>
+                    </div>
+                    
+                    <div style="margin-bottom: 2rem;">
+                        <div class="result-label">VAT Amount</div>
+                        <div class="result-value" style="font-size: 1.75rem; color: var(--accent-light);" id="vatResult">£0.00</div>
+                    </div>
+                    
+                    <div style="padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.2);">
+                        <div class="result-label">Gross Amount (Incl. VAT)</div>
+                        <div class="result-value" id="grossAmount">£0.00</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Detailed Content Section -->
+    <section class="section section-alt">
+        <div class="container">
+            <article class="tool-content">
+                <h2>What is a VAT Calculator?</h2>
+                <p>A VAT (Value Added Tax) calculator is an essential business tool that helps you quickly calculate the VAT amount on goods and services. Whether you're a business owner pricing your products, an accountant preparing invoices, or a consumer checking if you're being charged correctly, this calculator simplifies VAT calculations instantly.</p>
+                
+                <p>Value Added Tax is a consumption tax applied to most goods and services in the UK and many other countries. Our calculator supports the three main UK VAT rates: the standard 20% rate that applies to most goods and services, the reduced 5% rate for specific items like domestic energy and children's car seats, and the 0% zero rate for essential items like most food and children's clothing.</p>
+
+                <h2>How the VAT Calculator Works</h2>
+                <p>Our VAT calculator performs two primary functions with precision and speed:</p>
+                
+                <h3>Adding VAT to Net Prices</h3>
+                <p>When you have a price excluding VAT (net price) and need to calculate the total price including VAT, the calculator multiplies the net amount by the VAT rate and adds it to the original price. For example, adding 20% VAT to £100 gives you £120 total.</p>
+
+                <h3>Removing VAT from Gross Prices</h3>
+                <p>When you have a price that includes VAT (gross price) and need to determine the VAT amount and net price, the calculator uses the formula: Net = Gross ÷ (1 + VAT rate). For example, removing 20% VAT from £120 gives you £100 net and £20 VAT.</p>
+
+                <h3>Multiple Rate Support</h3>
+                <p>The calculator handles all three UK VAT rates: 20% standard rate for most goods and services, 5% reduced rate for specific categories like home energy and mobility aids, and 0% zero rate for essential goods like most food, books, and children's clothing.</p>
+
+                <h2>Why This VAT Calculator is Useful</h2>
+                <p>Our VAT calculator serves multiple important purposes for businesses and consumers:</p>
+                
+                <h3>Business Pricing</h3>
+                <p>Business owners use the calculator to ensure they're charging the correct VAT amount on their products and services. This helps maintain compliance with tax regulations and ensures accurate invoicing.</p>
+
+                <h3>Invoice Preparation</h3>
+                <p>When creating invoices, businesses need to clearly show the net amount, VAT amount, and gross total. The calculator provides these figures instantly, saving time and reducing errors.</p>
+
+                <h3>Price Comparison</h3>
+                <p>Consumers can use the calculator to compare prices fairly, converting between VAT-inclusive and VAT-exclusive prices to understand the true cost of goods and services.</p>
+
+                <h3>VAT Reclaim</h3>
+                <p>Businesses registered for VAT can reclaim VAT paid on business expenses. The calculator helps determine the VAT component of purchases for accurate reclaim calculations.</p>
+
+                <h2>Step-by-Step Guide to Using the VAT Calculator</h2>
+                <p>Using our VAT calculator is straightforward:</p>
+                
+                <ol>
+                    <li><strong>Enter the Amount:</strong> Input the price you want to calculate VAT for. This could be either a net price (without VAT) or a gross price (with VAT included).</li>
+                    <li><strong>Select the VAT Rate:</strong> Choose the appropriate VAT rate for your goods or services. Most items use the 20% standard rate.</li>
+                    <li><strong>Choose Calculation Type:</strong> Select whether you want to add VAT to a net price or remove VAT from a gross price.</li>
+                    <li><strong>View Results:</strong> The calculator instantly displays the net amount, VAT amount, and gross amount for your records.</li>
+                </ol>
+
+                <h2>Example Calculations</h2>
+                <p>Here are practical examples of VAT calculations:</p>
+                
+                <h3>Adding 20% VAT</h3>
+                <p>You want to sell a product for £250 net price plus VAT:</p>
+                <ul>
+                    <li><strong>Net Amount:</strong> £250.00</li>
+                    <li><strong>VAT (20%):</strong> £50.00</li>
+                    <li><strong>Gross Amount:</strong> £300.00</li>
+                </ul>
+                
+                <h3>Removing 20% VAT</h3>
+                <p>You paid £180 including VAT and want to know the VAT amount:</p>
+                <ul>
+                    <li><strong>Gross Amount:</strong> £180.00</li>
+                    <li><strong>Net Amount:</strong> £150.00</li>
+                    <li><strong>VAT (20%):</strong> £30.00</li>
+                </ul>
+                
+                <h3>Reduced Rate (5%) Example</h3>
+                <p>Calculating VAT on a £400 energy bill at the reduced rate:</p>
+                <ul>
+                    <li><strong>Net Amount:</strong> £400.00</li>
+                    <li><strong>VAT (5%):</strong> £20.00</li>
+                    <li><strong>Gross Amount:</strong> £420.00</li>
+                </ul>
+
+                <h2>Benefits of Using This VAT Calculator</h2>
+                <p>Our VAT calculator offers numerous advantages:</p>
+                
+                <h3>Instant Results</h3>
+                <p>Get accurate VAT calculations in real-time as you type. No need to press calculate buttons or wait for page refreshes.</p>
+
+                <h3>All UK VAT Rates</h3>
+                <p>The calculator includes all three UK VAT rates, making it suitable for any type of goods or services you need to calculate.</p>
+
+                <h3>Dual Functionality</h3>
+                <p>Switch seamlessly between adding VAT and removing VAT with a single click, making it versatile for different scenarios.</p>
+
+                <h3>Accuracy Guaranteed</h3>
+                <p>Our calculator uses precise mathematical formulas and rounds to the nearest penny, ensuring accuracy for your business records.</p>
+
+                <h3>No Registration Required</h3>
+                <p>Use the calculator immediately without creating accounts, providing email addresses, or dealing with subscriptions.</p>
+
+                <h2>Common Mistakes Users Make</h2>
+                <p>Avoid these common VAT calculation errors:</p>
+                
+                <h3>Incorrect Rate Selection</h3>
+                <p>Using the wrong VAT rate is a common mistake. Always verify which rate applies to your specific goods or services. When in doubt, consult HMRC guidelines or a tax professional.</p>
+
+                <h3>Wrong Calculation Direction</h3>
+                <p>Removing VAT is not simply subtracting 20% from the gross amount. The correct formula is Net = Gross ÷ 1.20. Simply taking 20% off £120 gives £96, which is incorrect - the correct net amount is £100.</p>
+
+                <h3>Forgetting Exempt Items</h3>
+                <p>Some goods and services are VAT exempt (different from zero-rated). Exempt items don't have VAT added at any rate, and businesses dealing only in exempt goods cannot register for VAT.</p>
+
+                <h3>Rounding Errors</h3>
+                <p>When calculating VAT on multiple items, always calculate VAT on each item individually, then sum the results. Calculating VAT on the total can lead to penny differences due to rounding.</p>
+
+                <h2>Frequently Asked Questions</h2>
+                
+                <h3>What is the current standard VAT rate in the UK?</h3>
+                <p>The standard VAT rate in the UK is 20%. This applies to most goods and services unless specifically classified as reduced rate, zero-rated, or exempt.</p>
+
+                <h3>What's the difference between zero-rated and exempt?</h3>
+                <p>Zero-rated items have a 0% VAT rate applied - businesses can still reclaim VAT on costs related to producing these goods. Exempt items have no VAT applied at all, and businesses dealing only in exempt goods cannot register for VAT or reclaim input VAT.</p>
+
+                <h3>Do I need to register for VAT?</h3>
+                <p>You must register for VAT if your taxable turnover exceeds £85,000 (2024/25 threshold) in a 12-month period. You can also register voluntarily if your turnover is below this threshold, which may be beneficial if you sell mainly to VAT-registered businesses.</p>
+
+                <h3>How do I calculate VAT backwards?</h3>
+                <p>To remove VAT from a gross price, divide the gross amount by (1 + VAT rate). For 20% VAT, divide by 1.20. For 5% VAT, divide by 1.05. Our calculator handles this automatically when you select "Remove VAT."</p>
+
+                <h3>Can I use this calculator for EU VAT?</h3>
+                <p>While the calculation methods are the same, EU countries have different VAT rates and rules. This calculator is optimized for UK VAT rates. For EU VAT calculations, ensure you're using the correct rate for the specific country.</p>
+
+                <h3>What items are VAT exempt?</h3>
+                <p>Common VAT exempt items include insurance, postal services, health services provided by registered professionals, and education/training. Always check current HMRC guidance for the complete list.</p>
+            </article>
+        </div>
+    </section>
+
+    <!-- Related Tools Section -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Related Tools</h2>
+                <p>Explore more calculators for your business needs.</p>
+            </div>
+            <div class="tools-grid" style="grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));">
+                <div class="tool-card">
+                    <div class="icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                            <polyline points="14 2 14 8 20 8"></polyline>
+                        </svg>
+                    </div>
+                    <h3>Invoice Generator</h3>
+                    <p>Create professional invoices with automatic VAT calculations included.</p>
+                    <a href="invoice-generator.html" class="btn btn-primary">Use Calculator</a>
+                </div>
+                <div class="tool-card">
+                    <div class="icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
+                            <polyline points="17 6 23 6 23 12"></polyline>
+                        </svg>
+                    </div>
+                    <h3>Profit Margin Calculator</h3>
+                    <p>Calculate your profit margins and pricing strategies for your business.</p>
+                    <a href="profit-margin-calculator.html" class="btn btn-primary">Use Calculator</a>
+                </div>
+                <div class="tool-card">
+                    <div class="icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="12" y1="6" x2="12" y2="12"></line>
+                            <line x1="12" y1="12" x2="16" y2="14"></line>
+                        </svg>
+                    </div>
+                    <h3>ROI Calculator</h3>
+                    <p>Calculate return on investment for your business decisions.</p>
+                    <a href="roi-calculator.html" class="btn btn-primary">Use Calculator</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Need More Business Tools?</h2>
+            <p>Explore our complete collection of free calculators for your business.</p>
+            <a href="../tools.html" class="btn btn-secondary btn-lg">View All Tools</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="../index.html" class="logo">
+                        <img src="https://i.ibb.co/Dg9Nbkty/toolkitproo-logo.png" alt="ToolkitProo Logo">
+                        ToolkitProo
+                    </a>
+                    <p>Free online calculators and tools to help you make better financial decisions.</p>
+                </div>
+                <div class="footer-links-col">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="../index.html">Home</a></li>
+                        <li><a href="../tools.html">Tools</a></li>
+                        <li><a href="../blog.html">Blog</a></li>
+                        <li><a href="../about.html">About</a></li>
+                        <li><a href="../contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links-col">
+                    <h4>Popular Tools</h4>
+                    <ul class="footer-links">
+                        <li><a href="mortgage-calculator.html">Mortgage Calculator</a></li>
+                        <li><a href="loan-repayment-calculator.html">Loan Calculator</a></li>
+                        <li><a href="savings-interest-calculator.html">Savings Calculator</a></li>
+                        <li><a href="vat-calculator.html">VAT Calculator</a></li>
+                        <li><a href="roi-calculator.html">ROI Calculator</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links-col">
+                    <h4>Legal</h4>
+                    <ul class="footer-links">
+                        <li><a href="../faq.html">FAQ</a></li>
+                        <li><a href="../privacy-policy.html">Privacy Policy</a></li>
+                        <li><a href="../terms.html">Terms & Conditions</a></li>
+                        <li><a href="../disclaimer.html">Disclaimer</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 ToolkitProo. All rights reserved.</p>
+                <p>Owned by John Smith | Contact: toolix5@gmail.com | 03147867753</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/tools.js"></script>
+    <script>
+        function calculateVAT() {
+            const amount = parseFloat(document.getElementById('vatAmount').value) || 0;
+            const rate = parseFloat(document.getElementById('vatRate').value) || 0;
+            const calcType = document.querySelector('input[name="calcType"]:checked').value;
+            
+            let netAmount, vatAmount, grossAmount;
+            
+            if (calcType === 'add') {
+                // Adding VAT to net amount
+                netAmount = amount;
+                vatAmount = amount * (rate / 100);
+                grossAmount = netAmount + vatAmount;
+            } else {
+                // Removing VAT from gross amount
+                grossAmount = amount;
+                netAmount = amount / (1 + rate / 100);
+                vatAmount = grossAmount - netAmount;
+            }
+            
+            document.getElementById('netAmount').textContent = '£' + netAmount.toFixed(2);
+            document.getElementById('vatResult').textContent = '£' + vatAmount.toFixed(2);
+            document.getElementById('grossAmount').textContent = '£' + grossAmount.toFixed(2);
+        }
+        
+        // Initialize on page load
+        calculateVAT();
+    </script>
+</body>
+</html>

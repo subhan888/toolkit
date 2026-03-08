@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Property ROI Calculator | Rental Property Investment Calculator | ToolkitProo</title>
+    <meta name="description" content="Free property ROI calculator for rental investments. Calculate cash flow, cap rate, and total returns on your real estate investments.">
+    <meta name="keywords" content="property ROI calculator, rental property calculator, real estate investment calculator, cap rate calculator, cash flow calculator">
+    <meta name="author" content="John Smith">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://toolkitproo.online/tools/property-roi-calculator.html">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Property ROI Calculator | Rental Property Investment Calculator">
+    <meta property="og:description" content="Free calculator for rental property ROI, cash flow, and cap rate.">
+    <meta property="og:url" content="https://toolkitproo.online/tools/property-roi-calculator.html">
+    <meta property="og:type" content="website">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Property ROI Calculator | ToolkitProo">
+    <meta name="twitter:description" content="Free rental property investment calculator.">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="https://i.ibb.co/Dg9Nbkty/toolkitproo-logo.png">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="../index.html" class="logo">
+                <img src="https://i.ibb.co/Dg9Nbkty/toolkitproo-logo.png" alt="ToolkitProo Logo">
+                ToolkitProo
+            </a>
+            <ul class="nav-links">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../tools.html">Tools</a></li>
+                <li><a href="../blog.html">Blog</a></li>
+                <li><a href="../about.html">About</a></li>
+                <li><a href="../contact.html">Contact</a></li>
+            </ul>
+            <button class="mobile-menu-btn" aria-label="Toggle menu">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Breadcrumbs -->
+    <nav class="breadcrumbs">
+        <div class="container">
+            <ol>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../tools.html">Tools</a></li>
+                <li>Property ROI Calculator</li>
+            </ol>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" style="padding: 3rem 0;">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Property ROI Calculator</h1>
+                <p>Calculate returns on your rental property investments. Analyze cash flow, cap rate, and total ROI.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Calculator Section -->
+    <section class="calculator-section">
+        <div class="container">
+            <div class="calculator-container">
+                <!-- Calculator Form -->
+                <div class="calculator-form">
+                    <h3>Property Investment Details</h3>
+                    <form id="propertyForm" onsubmit="calculatePropertyROI(event)">
+                        <div class="form-group">
+                            <label for="purchasePrice">Purchase Price ($)</label>
+                            <input type="number" id="purchasePrice" placeholder="300000" min="0" step="1000" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="downPayment">Down Payment ($)</label>
+                            <input type="number" id="downPayment" placeholder="60000" min="0" step="1000" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="monthlyRent">Monthly Rent ($)</label>
+                            <input type="number" id="monthlyRent" placeholder="2000" min="0" step="50" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="monthlyExpenses">Monthly Expenses ($)</label>
+                            <input type="number" id="monthlyExpenses" placeholder="500" min="0" step="50" required>
+                            <small style="color: var(--text-light);">Insurance, maintenance, property management, etc.</small>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="mortgagePayment">Monthly Mortgage Payment ($)</label>
+                            <input type="number" id="mortgagePayment" placeholder="1200" min="0" step="50" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="annualAppreciation">Expected Annual Appreciation (%)</label>
+                            <input type="number" id="annualAppreciation" placeholder="3" min="0" max="20" step="0.5">
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary btn-lg" style="width: 100%;">Calculate Property ROI</button>
+                    </form>
+                </div>
+
+                <!-- Results -->
+                <div class="calculator-result" id="resultSection" style="display: none;">
+                    <h3>Investment Analysis</h3>
+                    
+                    <div style="margin-bottom: 2rem;">
+                        <div class="result-label">Monthly Cash Flow</div>
+                        <div class="result-value" id="monthlyCashFlow">$0</div>
+                    </div>
+                    
+                    <div style="margin-bottom: 2rem;">
+                        <div class="result-label">Cap Rate</div>
+                        <div class="result-value" style="font-size: 1.75rem;" id="capRate">0%</div>
+                    </div>
+                    
+                    <div style="margin-bottom: 2rem;">
+                        <div class="result-label">Cash on Cash Return</div>
+                        <div class="result-value" style="font-size: 1.5rem;" id="cashOnCash">0%</div>
+                    </div>
+                    
+                    <div style="padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.2);">
+                        <div class="result-label">Annual ROI (with appreciation)</div>
+                        <div style="font-size: 1.25rem; font-weight: 600;" id="annualROI">0%</div>
+                    </div>
+                </div>
+
+                <!-- Default Result State -->
+                <div class="calculator-result" id="defaultResult">
+                    <h3>Your Results Will Appear Here</h3>
+                    <p style="color: rgba(255,255,255,0.7);">Enter your property details to analyze your rental investment returns.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Detailed Content Section -->
+    <section class="section section-alt">
+        <div class="container">
+            <article class="tool-content">
+                <h2>What is a Property ROI Calculator?</h2>
+                <p>A property ROI calculator is a comprehensive tool for analyzing rental property investments. It helps real estate investors evaluate potential deals by calculating key metrics like cash flow, capitalization rate (cap rate), cash-on-cash return, and overall return on investment.</p>
+                
+                <p>Unlike simple ROI calculations, property investment analysis must account for multiple factors: rental income, operating expenses, mortgage payments, property appreciation, and tax benefits. This calculator brings all these elements together to give you a complete picture of your investment's potential.</p>
+
+                <h2>Key Investment Metrics Explained</h2>
+                
+                <h3>Cash Flow</h3>
+                <p>Monthly cash flow is the money left after all expenses and mortgage payments are deducted from rental income. Positive cash flow means the property generates income; negative cash flow means you're subsidizing the investment.</p>
+
+                <h3>Cap Rate (Capitalization Rate)</h3>
+                <p>Cap rate measures the property's return based on its purchase price, excluding financing. Formula: (Annual Rent - Annual Expenses) / Purchase Price. Higher cap rates indicate better returns but may signal higher risk.</p>
+
+                <h3>Cash on Cash Return</h3>
+                <p>This metric shows your return based on the actual cash invested (down payment). Formula: Annual Cash Flow / Cash Invested. It helps compare property investments to other opportunities.</p>
+
+                <h3>Total ROI</h3>
+                <p>Total ROI includes cash flow, appreciation, and tax benefits. This gives the complete picture of your investment return over time.</p>
+
+                <h2>What is a Good Cap Rate?</h2>
+                <p>Cap rates vary by location and property type:</p>
+                <ul>
+                    <li><strong>4-6%:</strong> Major cities, lower risk, stable markets</li>
+                    <li><strong>6-8%:</strong> Secondary markets, moderate risk</li>
+                    <li><strong>8-12%:</strong> Emerging markets, higher risk, potentially higher returns</li>
+                </ul>
+
+                <h2>Step-by-Step Guide</h2>
+                <ol>
+                    <li><strong>Enter Purchase Price:</strong> The total cost to acquire the property.</li>
+                    <li><strong>Add Down Payment:</strong> Your initial cash investment.</li>
+                    <li><strong>Input Monthly Rent:</strong> Expected rental income.</li>
+                    <li><strong>Include Expenses:</strong> Insurance, maintenance, management fees, vacancy allowance.</li>
+                    <li><strong>Add Mortgage Payment:</strong> Principal and interest payment.</li>
+                    <li><strong>Set Appreciation:</strong> Expected annual property value increase (historically 3-5%).</li>
+                    <li><strong>Review Metrics:</strong> Analyze cash flow, cap rate, and ROI.</li>
+                </ol>
+
+                <h2>Example Calculation</h2>
+                <p><strong>Scenario:</strong> You buy a rental property for $300,000 with a $60,000 down payment.</p>
+                <ul>
+                    <li><strong>Monthly Rent:</strong> $2,000</li>
+                    <li><strong>Monthly Expenses:</strong> $400 (insurance, maintenance, vacancy)</li>
+                    <li><strong>Mortgage Payment:</strong> $1,200</li>
+                    <li><strong>Monthly Cash Flow:</strong> $400</li>
+                    <li><strong>Cap Rate:</strong> 6.4%</li>
+                    <li><strong>Cash on Cash Return:</strong> 8%</li>
+                </ul>
+
+                <h2>Tips for Maximizing Property ROI</h2>
+                <ul>
+                    <li>Buy in appreciating neighborhoods</li>
+                    <li>Minimize vacancy through good tenant screening</li>
+                    <li>Regular maintenance prevents costly repairs</li>
+                    <li>Refinance when rates drop</li>
+                    <li>Consider value-add opportunities</li>
+                    <li>Use professional property management</li>
+                </ul>
+
+                <h2>Frequently Asked Questions</h2>
+                
+                <h3>What is a good cash on cash return?</h3>
+                <p>Most investors look for at least 8-12% cash on cash return. However, this varies by market. In appreciating markets, lower cash returns may be acceptable due to equity gains.</p>
+
+                <h3>Should I invest for cash flow or appreciation?</h3>
+                <p>This depends on your goals. Cash flow provides immediate income and stability. Appreciation builds long-term wealth but is less predictable. Many investors seek a balance of both.</p>
+
+                <h3>How do I account for vacancy?</h3>
+                <p>Most investors assume 5-10% vacancy rate. Include this in your expense calculations by reducing expected rental income or adding a vacancy expense line.</p>
+
+                <h3>What about tax benefits?</h3>
+                <p>Rental property offers significant tax advantages including depreciation, mortgage interest deduction, and expense write-offs. Consult a tax professional to understand your specific situation.</p>
+            </article>
+        </div>
+    </section>
+
+    <!-- Related Tools -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Related Tools</h2>
+            </div>
+            <div class="tools-grid" style="grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));">
+                <div class="tool-card">
+                    <div class="icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                        </svg>
+                    </div>
+                    <h3>Mortgage Calculator</h3>
+                    <p>Calculate mortgage payments for investment properties.</p>
+                    <a href="mortgage-calculator.html" class="btn btn-primary">Use Calculator</a>
+                </div>
+                <div class="tool-card">
+                    <div class="icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                        </svg>
+                    </div>
+                    <h3>Stamp Duty Calculator</h3>
+                    <p>Calculate SDLT for your property purchase.</p>
+                    <a href="stamp-duty-calculator.html" class="btn btn-primary">Use Calculator</a>
+                </div>
+                <div class="tool-card">
+                    <div class="icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="12" y1="6" x2="12" y2="12"></line>
+                            <line x1="12" y1="12" x2="16" y2="14"></line>
+                        </svg>
+                    </div>
+                    <h3>ROI Calculator</h3>
+                    <p>General ROI calculator for any investment.</p>
+                    <a href="roi-calculator.html" class="btn btn-primary">Use Calculator</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Ready to Invest in Property?</h2>
+            <p>Explore all our real estate and investment calculators.</p>
+            <a href="../tools.html" class="btn btn-secondary btn-lg">View All Tools</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="../index.html" class="logo">
+                        <img src="https://i.ibb.co/Dg9Nbkty/toolkitproo-logo.png" alt="ToolkitProo Logo">
+                        ToolkitProo
+                    </a>
+                    <p>Free online calculators and tools to help you make better financial decisions.</p>
+                </div>
+                <div class="footer-links-col">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="../index.html">Home</a></li>
+                        <li><a href="../tools.html">Tools</a></li>
+                        <li><a href="../blog.html">Blog</a></li>
+                        <li><a href="../about.html">About</a></li>
+                        <li><a href="../contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links-col">
+                    <h4>Popular Tools</h4>
+                    <ul class="footer-links">
+                        <li><a href="mortgage-calculator.html">Mortgage Calculator</a></li>
+                        <li><a href="loan-repayment-calculator.html">Loan Calculator</a></li>
+                        <li><a href="savings-interest-calculator.html">Savings Calculator</a></li>
+                        <li><a href="vat-calculator.html">VAT Calculator</a></li>
+                        <li><a href="roi-calculator.html">ROI Calculator</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links-col">
+                    <h4>Legal</h4>
+                    <ul class="footer-links">
+                        <li><a href="../faq.html">FAQ</a></li>
+                        <li><a href="../privacy-policy.html">Privacy Policy</a></li>
+                        <li><a href="../terms.html">Terms & Conditions</a></li>
+                        <li><a href="../disclaimer.html">Disclaimer</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 ToolkitProo. All rights reserved.</p>
+                <p>Owned by John Smith | Contact: toolix5@gmail.com | 03147867753</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/tools.js"></script>
+    <script>
+        function calculatePropertyROI(e) {
+            e.preventDefault();
+            
+            const purchasePrice = parseFloat(document.getElementById('purchasePrice').value) || 0;
+            const downPayment = parseFloat(document.getElementById('downPayment').value) || 0;
+            const monthlyRent = parseFloat(document.getElementById('monthlyRent').value) || 0;
+            const monthlyExpenses = parseFloat(document.getElementById('monthlyExpenses').value) || 0;
+            const mortgagePayment = parseFloat(document.getElementById('mortgagePayment').value) || 0;
+            const appreciation = parseFloat(document.getElementById('annualAppreciation').value) || 0;
+            
+            const monthlyCashFlow = monthlyRent - monthlyExpenses - mortgagePayment;
+            const annualCashFlow = monthlyCashFlow * 12;
+            
+            const annualRent = monthlyRent * 12;
+            const annualExpenses = monthlyExpenses * 12;
+            const netOperatingIncome = annualRent - annualExpenses;
+            
+            const capRate = purchasePrice > 0 ? (netOperatingIncome / purchasePrice) * 100 : 0;
+            const cashOnCash = downPayment > 0 ? (annualCashFlow / downPayment) * 100 : 0;
+            
+            const appreciationValue = purchasePrice * (appreciation / 100);
+            const totalAnnualReturn = annualCashFlow + appreciationValue;
+            const totalROI = downPayment > 0 ? (totalAnnualReturn / downPayment) * 100 : 0;
+            
+            document.getElementById('monthlyCashFlow').textContent = '$' + monthlyCashFlow.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+            document.getElementById('capRate').textContent = capRate.toFixed(2) + '%';
+            document.getElementById('cashOnCash').textContent = cashOnCash.toFixed(2) + '%';
+            document.getElementById('annualROI').textContent = totalROI.toFixed(2) + '%';
+            
+            document.getElementById('defaultResult').style.display = 'none';
+            document.getElementById('resultSection').style.display = 'block';
+        }
+    </script>
+</body>
+</html>

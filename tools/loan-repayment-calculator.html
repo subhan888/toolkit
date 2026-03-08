@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loan Repayment Calculator | Free Personal Loan Calculator | ToolkitProo</title>
+    <meta name="description" content="Free loan repayment calculator to estimate monthly payments, total interest, and amortization schedule for personal loans, auto loans, and more.">
+    <meta name="keywords" content="loan calculator, personal loan calculator, loan repayment calculator, auto loan calculator, installment loan calculator">
+    <meta name="author" content="John Smith">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://toolkitproo.online/tools/loan-repayment-calculator.html">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Loan Repayment Calculator | Free Personal Loan Calculator">
+    <meta property="og:description" content="Free loan repayment calculator to estimate monthly payments and total interest for any loan type.">
+    <meta property="og:url" content="https://toolkitproo.online/tools/loan-repayment-calculator.html">
+    <meta property="og:type" content="website">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Loan Repayment Calculator | ToolkitProo">
+    <meta name="twitter:description" content="Free loan repayment calculator for personal loans, auto loans, and more.">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="https://i.ibb.co/Dg9Nbkty/toolkitproo-logo.png">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="../index.html" class="logo">
+                <img src="https://i.ibb.co/Dg9Nbkty/toolkitproo-logo.png" alt="ToolkitProo Logo">
+                ToolkitProo
+            </a>
+            <ul class="nav-links">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../tools.html">Tools</a></li>
+                <li><a href="../blog.html">Blog</a></li>
+                <li><a href="../about.html">About</a></li>
+                <li><a href="../contact.html">Contact</a></li>
+            </ul>
+            <button class="mobile-menu-btn" aria-label="Toggle menu">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Breadcrumbs -->
+    <nav class="breadcrumbs">
+        <div class="container">
+            <ol>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../tools.html">Tools</a></li>
+                <li>Loan Repayment Calculator</li>
+            </ol>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" style="padding: 3rem 0;">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Loan Repayment Calculator</h1>
+                <p>Calculate your monthly loan payments, total interest costs, and see your complete repayment schedule for any type of loan.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Calculator Section -->
+    <section class="calculator-section">
+        <div class="container">
+            <div class="calculator-container">
+                <!-- Calculator Form -->
+                <div class="calculator-form">
+                    <h3>Enter Your Loan Details</h3>
+                    <form id="loanForm" onsubmit="calculateLoan(event)">
+                        <div class="form-group">
+                            <label for="loanAmount">Loan Amount ($)</label>
+                            <input type="number" id="loanAmount" placeholder="25000" min="0" step="100" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="interestRate">Annual Interest Rate (%)</label>
+                            <input type="number" id="interestRate" placeholder="8.5" min="0" max="100" step="0.01" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="loanTerm">Loan Term</label>
+                            <div class="form-row">
+                                <div>
+                                    <input type="number" id="loanTermValue" placeholder="5" min="1" required>
+                                </div>
+                                <div>
+                                    <select id="loanTermType" required>
+                                        <option value="years" selected>Years</option>
+                                        <option value="months">Months</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="loanType">Loan Type (Optional)</label>
+                            <select id="loanType">
+                                <option value="">Select loan type</option>
+                                <option value="personal">Personal Loan</option>
+                                <option value="auto">Auto Loan</option>
+                                <option value="student">Student Loan</option>
+                                <option value="debt">Debt Consolidation</option>
+                                <option value="business">Business Loan</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary btn-lg" style="width: 100%;">Calculate Repayment</button>
+                    </form>
+                </div>
+
+                <!-- Results -->
+                <div class="calculator-result" id="resultSection" style="display: none;">
+                    <h3>Your Loan Summary</h3>
+                    
+                    <div style="margin-bottom: 2rem;">
+                        <div class="result-label">Monthly Payment</div>
+                        <div class="result-value" id="monthlyPayment">$0</div>
+                    </div>
+                    
+                    <div style="margin-bottom: 2rem;">
+                        <div class="result-label">Total Interest</div>
+                        <div class="result-value" style="font-size: 1.5rem;" id="totalInterest">$0</div>
+                    </div>
+                    
+                    <div style="margin-bottom: 2rem;">
+                        <div class="result-label">Total Repayment</div>
+                        <div class="result-value" style="font-size: 1.5rem;" id="totalRepayment">$0</div>
+                    </div>
+                    
+                    <div style="padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.2);">
+                        <div class="result-label">Interest to Principal Ratio</div>
+                        <div style="font-size: 1.25rem; font-weight: 600;" id="interestRatio">0%</div>
+                    </div>
+                </div>
+
+                <!-- Default Result State -->
+                <div class="calculator-result" id="defaultResult">
+                    <h3>Your Results Will Appear Here</h3>
+                    <p style="color: rgba(255,255,255,0.7);">Enter your loan amount, interest rate, and term to see your estimated monthly payment and total costs.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Detailed Content Section -->
+    <section class="section section-alt">
+        <div class="container">
+            <article class="tool-content">
+                <h2>What is a Loan Repayment Calculator?</h2>
+                <p>A loan repayment calculator is a financial tool designed to help borrowers understand the true cost of borrowing money. Whether you're considering a personal loan for home improvements, an auto loan for a new vehicle, or a debt consolidation loan to simplify your finances, this calculator provides essential information about your monthly obligations and the total amount you'll pay over the life of the loan.</p>
+                
+                <p>Our free loan repayment calculator uses standard amortization formulas to deliver accurate estimates of your monthly payments, total interest costs, and the overall amount you'll repay. By inputting just a few key details - the loan amount, interest rate, and repayment term - you can quickly assess whether a particular loan fits within your budget and compare different loan offers to find the best deal.</p>
+
+                <h2>How the Loan Repayment Calculator Works</h2>
+                <p>Understanding how our calculator processes your inputs helps you use it more effectively:</p>
+                
+                <h3>Principal Amount</h3>
+                <p>The loan amount (or principal) is the total sum you're borrowing from the lender. This is the starting point for all calculations. Keep in mind that some loans may include origination fees or other charges that could affect the actual amount you receive or owe.</p>
+
+                <h3>Interest Rate Processing</h3>
+                <p>The annual interest rate you enter is converted to a monthly rate by dividing by 12. This monthly rate is then applied to your remaining balance each month to calculate the interest portion of your payment. As you pay down the principal, the interest portion of each payment decreases while the principal portion increases.</p>
+
+                <h3>Amortization Calculation</h3>
+                <p>The calculator uses the standard amortization formula to determine your fixed monthly payment. This formula ensures that each payment covers the interest due for that period plus a portion of the principal, with the payment amount remaining constant throughout the loan term.</p>
+
+                <h2>Why This Loan Calculator is Useful</h2>
+                <p>Using a loan repayment calculator before committing to any loan offers numerous benefits:</p>
+                
+                <h3>Budget Assessment</h3>
+                <p>Knowing your exact monthly payment allows you to determine whether the loan fits comfortably within your budget. Financial experts recommend that your total monthly debt payments (including the new loan) should not exceed 36% of your gross monthly income.</p>
+
+                <h3>Total Cost Awareness</h3>
+                <p>Many borrowers focus only on the monthly payment without considering the total interest cost. Our calculator shows you exactly how much extra you'll pay in interest, helping you understand the true cost of borrowing.</p>
+
+                <h3>Loan Comparison</h3>
+                <p>By calculating different scenarios, you can compare loans with varying interest rates, terms, and amounts. This empowers you to negotiate better terms or choose the most cost-effective option.</p>
+
+                <h3>Term Impact Analysis</h3>
+                <p>The calculator clearly demonstrates how loan term affects both monthly payments and total interest. Longer terms mean lower monthly payments but significantly higher total interest costs.</p>
+
+                <h2>Step-by-Step Guide to Using the Loan Calculator</h2>
+                <p>Follow these steps to get accurate loan repayment estimates:</p>
+                
+                <ol>
+                    <li><strong>Enter the Loan Amount:</strong> Input the total amount you plan to borrow. If the lender charges origination fees, consider whether these are deducted from the loan amount or added to it.</li>
+                    <li><strong>Input the Interest Rate:</strong> Enter the annual percentage rate (APR) offered by your lender. If you're shopping around, try different rates to see how they affect your payments.</li>
+                    <li><strong>Set the Loan Term:</strong> Choose between years or months and enter the repayment period. Common personal loan terms range from 1 to 7 years.</li>
+                    <li><strong>Select Loan Type (Optional):</strong> While this doesn't affect calculations, selecting a loan type helps you organize your planning.</li>
+                    <li><strong>Click Calculate:</strong> Review your monthly payment, total interest, and total repayment amount.</li>
+                    <li><strong>Compare Scenarios:</strong> Adjust the inputs to compare different loan options and find what works best for your situation.</li>
+                </ol>
+
+                <h2>Example Calculation</h2>
+                <p>Let's examine a typical personal loan scenario:</p>
+                
+                <p><strong>Scenario:</strong> You need $20,000 for home renovations and receive a loan offer at 9.5% APR for 5 years.</p>
+                
+                <ul>
+                    <li><strong>Loan Amount:</strong> $20,000</li>
+                    <li><strong>Monthly Payment:</strong> $420.04</li>
+                    <li><strong>Total Interest:</strong> $5,202.40</li>
+                    <li><strong>Total Repayment:</strong> $25,202.40</li>
+                    <li><strong>Interest to Principal Ratio:</strong> 26%</li>
+                </ul>
+                
+                <p><strong>Comparison:</strong> If you chose a 3-year term instead at the same rate:</p>
+                <ul>
+                    <li><strong>Monthly Payment:</strong> $640.31 (52% higher)</li>
+                    <li><strong>Total Interest:</strong> $3,051.16 (41% less)</li>
+                    <li><strong>Total Savings:</strong> $2,151.24</li>
+                </ul>
+
+                <h2>Benefits of Using This Loan Calculator</h2>
+                <p>Our loan repayment calculator offers distinct advantages:</p>
+                
+                <h3>Instant, Accurate Results</h3>
+                <p>Get precise calculations in seconds without complex spreadsheets or manual formulas. Our calculator handles all the math for you.</p>
+
+                <h3>Flexible Term Options</h3>
+                <p>Calculate payments in either years or months, accommodating loans of any duration from short-term payday alternatives to long-term personal loans.</p>
+
+                <h3>No Personal Data Required</h3>
+                <p>Use the calculator anonymously without entering personal information, email addresses, or creating accounts.</p>
+
+                <h3>Mobile-Optimized</h3>
+                <p>Calculate on any device, whether you're at home on your computer or discussing loan options with a lender on your phone.</p>
+
+                <h3>Completely Free</h3>
+                <p>No fees, no subscriptions, no usage limits. Calculate as many scenarios as you need to make the best borrowing decision.</p>
+
+                <h2>Common Mistakes Users Make</h2>
+                <p>Avoid these pitfalls when using loan calculators:</p>
+                
+                <h3>Ignoring Fees</h3>
+                <p>Many loans come with origination fees, application fees, or prepayment penalties that aren't included in the basic calculation. Always ask lenders about all fees.</p>
+
+                <h3>Focusing Only on Monthly Payment</h3>
+                <p>While monthly affordability is important, don't ignore the total interest cost. A lower monthly payment over a longer term often means paying significantly more overall.</p>
+
+                <h3>Using the Wrong Rate</h3>
+                <p>Make sure you're using the APR (Annual Percentage Rate) rather than the nominal interest rate. APR includes fees and provides a more accurate cost comparison.</p>
+
+                <h3>Not Considering Credit Score Impact</h3>
+                <p>The rates you see advertised are typically for borrowers with excellent credit. Use a rate realistic for your credit profile for accurate estimates.</p>
+
+                <h2>Frequently Asked Questions</h2>
+                
+                <h3>What's the difference between interest rate and APR?</h3>
+                <p>The interest rate is the cost of borrowing expressed as a percentage of the loan amount. APR (Annual Percentage Rate) includes the interest rate plus any fees, giving you a more complete picture of the loan's total cost. Always compare loans using APR.</p>
+
+                <h3>How can I lower my monthly loan payment?</h3>
+                <p>You can lower monthly payments by borrowing less, securing a lower interest rate (by improving your credit score or shopping around), or extending the loan term. However, longer terms mean paying more interest overall.</p>
+
+                <h3>Should I choose a longer or shorter loan term?</h3>
+                <p>This depends on your priorities. Shorter terms mean higher monthly payments but less total interest. Choose shorter terms if you can afford the payments and want to minimize costs. Choose longer terms if you need lower monthly payments for budget flexibility.</p>
+
+                <h3>Can I pay off my loan early?</h3>
+                <p>Most loans allow early repayment, but some charge prepayment penalties. Check your loan agreement or ask your lender about prepayment terms before signing.</p>
+
+                <h3>How accurate are the calculator results?</h3>
+                <p>The calculator provides highly accurate estimates based on the information you provide. However, your actual payments may vary slightly due to rounding, payment timing, or additional fees not included in the calculation.</p>
+
+                <h3>What credit score do I need for a personal loan?</h3>
+                <p>Personal loan requirements vary by lender, but generally, scores above 670 qualify for better rates. Some lenders offer loans to borrowers with scores as low as 580, but at higher interest rates.</p>
+            </article>
+        </div>
+    </section>
+
+    <!-- Related Tools Section -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Related Tools</h2>
+                <p>Explore more calculators to help with your financial planning.</p>
+            </div>
+            <div class="tools-grid" style="grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));">
+                <div class="tool-card">
+                    <div class="icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                        </svg>
+                    </div>
+                    <h3>Mortgage Calculator</h3>
+                    <p>Calculate monthly payments for home loans and compare different mortgage options.</p>
+                    <a href="mortgage-calculator.html" class="btn btn-primary">Use Calculator</a>
+                </div>
+                <div class="tool-card">
+                    <div class="icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="12" y1="6" x2="12" y2="12"></line>
+                            <line x1="12" y1="12" x2="16" y2="14"></line>
+                        </svg>
+                    </div>
+                    <h3>ROI Calculator</h3>
+                    <p>Calculate return on investment and compare different investment opportunities.</p>
+                    <a href="roi-calculator.html" class="btn btn-primary">Use Calculator</a>
+                </div>
+                <div class="tool-card">
+                    <div class="icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="12" y1="1" x2="12" y2="23"></line>
+                            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                        </svg>
+                    </div>
+                    <h3>Savings Calculator</h3>
+                    <p>See how much you can save and how compound interest grows your money.</p>
+                    <a href="savings-interest-calculator.html" class="btn btn-primary">Use Calculator</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Explore All Our Free Tools</h2>
+            <p>Discover more calculators to help you make smarter financial decisions.</p>
+            <a href="../tools.html" class="btn btn-secondary btn-lg">View All Tools</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="../index.html" class="logo">
+                        <img src="https://i.ibb.co/Dg9Nbkty/toolkitproo-logo.png" alt="ToolkitProo Logo">
+                        ToolkitProo
+                    </a>
+                    <p>Free online calculators and tools to help you make better financial decisions.</p>
+                </div>
+                <div class="footer-links-col">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="../index.html">Home</a></li>
+                        <li><a href="../tools.html">Tools</a></li>
+                        <li><a href="../blog.html">Blog</a></li>
+                        <li><a href="../about.html">About</a></li>
+                        <li><a href="../contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links-col">
+                    <h4>Popular Tools</h4>
+                    <ul class="footer-links">
+                        <li><a href="mortgage-calculator.html">Mortgage Calculator</a></li>
+                        <li><a href="loan-repayment-calculator.html">Loan Calculator</a></li>
+                        <li><a href="savings-interest-calculator.html">Savings Calculator</a></li>
+                        <li><a href="vat-calculator.html">VAT Calculator</a></li>
+                        <li><a href="roi-calculator.html">ROI Calculator</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links-col">
+                    <h4>Legal</h4>
+                    <ul class="footer-links">
+                        <li><a href="../faq.html">FAQ</a></li>
+                        <li><a href="../privacy-policy.html">Privacy Policy</a></li>
+                        <li><a href="../terms.html">Terms & Conditions</a></li>
+                        <li><a href="../disclaimer.html">Disclaimer</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 ToolkitProo. All rights reserved.</p>
+                <p>Owned by John Smith | Contact: toolix5@gmail.com | 03147867753</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/tools.js"></script>
+    <script>
+        function calculateLoan(e) {
+            e.preventDefault();
+            
+            const loanAmount = parseFloat(document.getElementById('loanAmount').value) || 0;
+            const interestRate = parseFloat(document.getElementById('interestRate').value) || 0;
+            const termValue = parseFloat(document.getElementById('loanTermValue').value) || 0;
+            const termType = document.getElementById('loanTermType').value;
+            
+            const numPayments = termType === 'years' ? termValue * 12 : termValue;
+            const monthlyRate = interestRate / 100 / 12;
+            
+            let monthlyPayment = 0;
+            if (interestRate === 0) {
+                monthlyPayment = loanAmount / numPayments;
+            } else {
+                monthlyPayment = loanAmount * (monthlyRate * Math.pow(1 + monthlyRate, numPayments)) / 
+                                (Math.pow(1 + monthlyRate, numPayments) - 1);
+            }
+            
+            const totalRepayment = monthlyPayment * numPayments;
+            const totalInterest = totalRepayment - loanAmount;
+            const interestRatio = (totalInterest / loanAmount) * 100;
+            
+            document.getElementById('monthlyPayment').textContent = '$' + monthlyPayment.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+            document.getElementById('totalInterest').textContent = '$' + totalInterest.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+            document.getElementById('totalRepayment').textContent = '$' + totalRepayment.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+            document.getElementById('interestRatio').textContent = interestRatio.toFixed(1) + '%';
+            
+            document.getElementById('defaultResult').style.display = 'none';
+            document.getElementById('resultSection').style.display = 'block';
+        }
+    </script>
+</body>
+</html>

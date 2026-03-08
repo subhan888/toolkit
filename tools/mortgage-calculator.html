@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mortgage Calculator | Free Online Mortgage Payment Calculator | ToolkitProo</title>
+    <meta name="description" content="Free mortgage calculator to estimate monthly payments, total interest, and amortization schedule. Calculate your home loan payments with our easy-to-use tool.">
+    <meta name="keywords" content="mortgage calculator, home loan calculator, monthly mortgage payment, mortgage interest calculator, house payment calculator">
+    <meta name="author" content="John Smith">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://toolkitproo.online/tools/mortgage-calculator.html">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Mortgage Calculator | Free Online Mortgage Payment Calculator">
+    <meta property="og:description" content="Free mortgage calculator to estimate monthly payments and total interest. Plan your home purchase with confidence.">
+    <meta property="og:url" content="https://toolkitproo.online/tools/mortgage-calculator.html">
+    <meta property="og:type" content="website">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Mortgage Calculator | ToolkitProo">
+    <meta name="twitter:description" content="Free mortgage calculator to estimate monthly payments and total interest.">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="https://i.ibb.co/Dg9Nbkty/toolkitproo-logo.png">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="../index.html" class="logo">
+                <img src="https://i.ibb.co/Dg9Nbkty/toolkitproo-logo.png" alt="ToolkitProo Logo">
+                ToolkitProo
+            </a>
+            <ul class="nav-links">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../tools.html">Tools</a></li>
+                <li><a href="../blog.html">Blog</a></li>
+                <li><a href="../about.html">About</a></li>
+                <li><a href="../contact.html">Contact</a></li>
+            </ul>
+            <button class="mobile-menu-btn" aria-label="Toggle menu">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Breadcrumbs -->
+    <nav class="breadcrumbs">
+        <div class="container">
+            <ol>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../tools.html">Tools</a></li>
+                <li>Mortgage Calculator</li>
+            </ol>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" style="padding: 3rem 0;">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Mortgage Calculator</h1>
+                <p>Calculate your monthly mortgage payments, total interest, and see your complete amortization schedule.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Calculator Section -->
+    <section class="calculator-section">
+        <div class="container">
+            <div class="calculator-container">
+                <!-- Calculator Form -->
+                <div class="calculator-form">
+                    <h3>Enter Your Details</h3>
+                    <form id="mortgageForm" onsubmit="calculateMortgage(event)">
+                        <div class="form-group">
+                            <label for="homePrice">Home Price ($)</label>
+                            <input type="number" id="homePrice" placeholder="300000" min="0" step="1000" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="downPayment">Down Payment ($)</label>
+                            <input type="number" id="downPayment" placeholder="60000" min="0" step="1000" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="interestRate">Interest Rate (%)</label>
+                            <input type="number" id="interestRate" placeholder="6.5" min="0" max="30" step="0.01" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="loanTerm">Loan Term (Years)</label>
+                            <select id="loanTerm" required>
+                                <option value="15">15 Years</option>
+                                <option value="20">20 Years</option>
+                                <option value="30" selected>30 Years</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="propertyTax">Annual Property Tax ($)</label>
+                            <input type="number" id="propertyTax" placeholder="3000" min="0" step="100">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="homeInsurance">Annual Home Insurance ($)</label>
+                            <input type="number" id="homeInsurance" placeholder="1200" min="0" step="100">
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary btn-lg" style="width: 100%;">Calculate Mortgage</button>
+                    </form>
+                </div>
+
+                <!-- Results -->
+                <div class="calculator-result" id="resultSection" style="display: none;">
+                    <h3>Your Mortgage Summary</h3>
+                    
+                    <div style="margin-bottom: 2rem;">
+                        <div class="result-label">Monthly Payment</div>
+                        <div class="result-value" id="monthlyPayment">$0</div>
+                    </div>
+                    
+                    <div style="margin-bottom: 2rem;">
+                        <div class="result-label">Loan Amount</div>
+                        <div class="result-value" style="font-size: 1.5rem;" id="loanAmount">$0</div>
+                    </div>
+                    
+                    <div style="margin-bottom: 2rem;">
+                        <div class="result-label">Total Interest Paid</div>
+                        <div class="result-value" style="font-size: 1.5rem;" id="totalInterest">$0</div>
+                    </div>
+                    
+                    <div style="margin-bottom: 2rem;">
+                        <div class="result-label">Total Cost of Loan</div>
+                        <div class="result-value" style="font-size: 1.5rem;" id="totalCost">$0</div>
+                    </div>
+                    
+                    <div style="padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.2);">
+                        <div class="result-label">Payoff Date</div>
+                        <div style="font-size: 1.25rem; font-weight: 600;" id="payoffDate">-</div>
+                    </div>
+                </div>
+
+                <!-- Default Result State -->
+                <div class="calculator-result" id="defaultResult">
+                    <h3>Your Results Will Appear Here</h3>
+                    <p style="color: rgba(255,255,255,0.7);">Enter your home price, down payment, interest rate, and loan term to see your estimated monthly mortgage payment.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Detailed Content Section -->
+    <section class="section section-alt">
+        <div class="container">
+            <article class="tool-content">
+                <h2>What is a Mortgage Calculator?</h2>
+                <p>A mortgage calculator is an essential financial tool that helps prospective homebuyers estimate their monthly mortgage payments based on several key factors including the home price, down payment amount, interest rate, and loan term. This powerful calculator provides a clear picture of what homeownership will cost on a monthly basis, allowing you to budget effectively and make informed decisions about your home purchase.</p>
+                
+                <p>Our free mortgage calculator goes beyond simple payment estimates. It calculates your total loan amount, the interest you'll pay over the life of the loan, your payoff date, and even factors in property taxes and homeowners insurance to give you a comprehensive view of your housing costs. Whether you're a first-time buyer or looking to refinance, this tool provides the insights you need to plan your financial future.</p>
+
+                <h2>How the Mortgage Calculator Works</h2>
+                <p>Our mortgage calculator uses industry-standard formulas to provide accurate estimates of your home loan payments. Here's how it works:</p>
+                
+                <h3>Input Collection</h3>
+                <p>The calculator collects six key pieces of information: your desired home price, the down payment you can afford, the annual interest rate offered by your lender, the loan term (15, 20, or 30 years), annual property taxes, and annual homeowners insurance premiums. Each of these factors plays a crucial role in determining your monthly payment.</p>
+
+                <h3>Principal and Interest Calculation</h3>
+                <p>The core calculation uses the standard amortization formula to determine your monthly principal and interest payment. This formula accounts for the loan amount (home price minus down payment), the monthly interest rate (annual rate divided by 12), and the total number of payments (loan term in years multiplied by 12).</p>
+
+                <h3>Total Monthly Payment</h3>
+                <p>After calculating the principal and interest, the calculator adds your monthly property tax and insurance costs (annual amounts divided by 12) to give you the complete picture of your monthly housing expense. This total monthly payment is what lenders use to determine your debt-to-income ratio during the approval process.</p>
+
+                <h2>Why This Mortgage Calculator is Useful</h2>
+                <p>Understanding your potential mortgage payment is crucial for several reasons:</p>
+                
+                <h3>Budget Planning</h3>
+                <p>Knowing your monthly payment helps you determine how much house you can realistically afford. Financial experts recommend that your monthly housing costs (including principal, interest, taxes, and insurance) should not exceed 28% of your gross monthly income. Our calculator helps you stay within this guideline.</p>
+
+                <h3>Down Payment Strategy</h3>
+                <p>The calculator shows how different down payment amounts affect your monthly payment and total interest paid. This helps you decide whether to save for a larger down payment or proceed with a smaller one.</p>
+
+                <h3>Loan Term Comparison</h3>
+                <p>By adjusting the loan term, you can see how choosing a 15-year mortgage versus a 30-year mortgage affects your payments and total interest costs. Shorter terms mean higher monthly payments but significantly less interest over time.</p>
+
+                <h3>Interest Rate Impact</h3>
+                <p>Even small differences in interest rates can have substantial impacts on your total costs. The calculator demonstrates how rate changes affect your monthly budget and long-term financial picture.</p>
+
+                <h2>Step-by-Step Guide to Using the Mortgage Calculator</h2>
+                <p>Follow these steps to get the most accurate estimate of your mortgage payments:</p>
+                
+                <ol>
+                    <li><strong>Enter the Home Price:</strong> Input the purchase price of the home you're considering or your maximum budget.</li>
+                    <li><strong>Input Your Down Payment:</strong> Enter the amount you plan to put down. Aim for at least 20% to avoid private mortgage insurance (PMI).</li>
+                    <li><strong>Set the Interest Rate:</strong> Use current market rates or a rate you've been quoted by a lender. If unsure, 6-7% is a reasonable estimate for 2025.</li>
+                    <li><strong>Select Loan Term:</strong> Choose between 15, 20, or 30 years based on your financial goals and monthly budget capacity.</li>
+                    <li><strong>Add Property Tax:</strong> Research the property tax rate in your target area and calculate the annual amount.</li>
+                    <li><strong>Include Insurance:</strong> Estimate annual homeowners insurance, typically $1,000-$2,000 depending on location and home value.</li>
+                    <li><strong>Click Calculate:</strong> Review your results and adjust inputs to explore different scenarios.</li>
+                </ol>
+
+                <h2>Example Calculation</h2>
+                <p>Let's walk through a typical mortgage calculation:</p>
+                
+                <p><strong>Scenario:</strong> You're buying a home priced at $350,000 with a 20% down payment ($70,000) at a 6.5% interest rate for 30 years.</p>
+                
+                <ul>
+                    <li><strong>Loan Amount:</strong> $280,000 ($350,000 - $70,000)</li>
+                    <li><strong>Monthly Principal & Interest:</strong> $1,770</li>
+                    <li><strong>Monthly Property Tax:</strong> $292 (assuming $3,500 annually)</li>
+                    <li><strong>Monthly Insurance:</strong> $100 (assuming $1,200 annually)</li>
+                    <li><strong>Total Monthly Payment:</strong> $2,162</li>
+                    <li><strong>Total Interest Over 30 Years:</strong> $357,200</li>
+                    <li><strong>Total Cost of Home:</strong> $707,200</li>
+                </ul>
+
+                <h2>Benefits of Using This Mortgage Calculator</h2>
+                <p>Our mortgage calculator offers numerous advantages:</p>
+                
+                <h3>Instant Results</h3>
+                <p>Get immediate estimates without waiting for lender quotes or appointments. Test multiple scenarios in seconds.</p>
+
+                <h3>No Personal Information Required</h3>
+                <p>Use the calculator anonymously without providing contact information or worrying about sales calls.</p>
+
+                <h3>Comprehensive Analysis</h3>
+                <p>See not just your monthly payment but your total interest costs, payoff date, and the complete financial picture of your loan.</p>
+
+                <h3>Mobile-Friendly</h3>
+                <p>Calculate on the go from any device. Perfect for house hunting when you need quick payment estimates.</p>
+
+                <h3>100% Free</h3>
+                <p>No hidden fees, no subscriptions, no limits on usage. Use it as often as you need throughout your home buying journey.</p>
+
+                <h2>Common Mistakes Users Make</h2>
+                <p>Avoid these common errors when using mortgage calculators:</p>
+                
+                <h3>Forgetting Additional Costs</h3>
+                <p>Many users only look at principal and interest, forgetting to factor in property taxes, insurance, and potential HOA fees. Always consider the complete monthly payment.</p>
+
+                <h3>Using Unrealistic Interest Rates</h3>
+                <p>Using advertised "teaser" rates that you may not qualify for can lead to disappointment. Use realistic rates based on your credit score and current market conditions.</p>
+
+                <h3>Ignoring PMI</h3>
+                <p>If your down payment is less than 20%, you'll likely pay Private Mortgage Insurance. Factor this into your calculations for accuracy.</p>
+
+                <h3>Not Comparing Loan Terms</h3>
+                <p>Don't just calculate for a 30-year term. Compare 15 and 20-year options to see the long-term savings potential.</p>
+
+                <h2>Frequently Asked Questions</h2>
+                
+                <h3>How accurate is this mortgage calculator?</h3>
+                <p>Our calculator uses standard amortization formulas and provides highly accurate estimates. However, your actual payment may vary slightly due to factors like PMI, HOA fees, and specific lender terms. Always consult with a lender for exact figures.</p>
+
+                <h3>Does the calculator include PMI?</h3>
+        <p>The current version calculates principal, interest, taxes, and insurance. If your down payment is less than 20%, you should manually add estimated PMI costs (typically 0.3% to 1.5% of the loan amount annually) to your monthly payment estimate.</p>
+
+                <h3>Can I calculate refinance savings with this tool?</h3>
+                <p>Yes! Simply enter your current loan balance as the home price, your desired new loan terms, and compare the results to your current payment to see potential savings.</p>
+
+                <h3>What interest rate should I use?</h3>
+                <p>Check current market rates from major lenders or use a rate based on your credit score. As of 2025, rates typically range from 6% to 8% for qualified buyers.</p>
+
+                <h3>How much should my down payment be?</h3>
+                <p>While 20% is ideal to avoid PMI, many buyers put down 3-10%. Use the calculator to see how different down payment amounts affect your monthly payment and total costs.</p>
+
+                <h3>Can I afford a home based on the calculator results?</h3>
+                <p>The calculator provides payment estimates, but affordability depends on your complete financial picture including income, existing debts, and lifestyle expenses. Generally, housing costs shouldn't exceed 28% of your gross monthly income.</p>
+            </article>
+        </div>
+    </section>
+
+    <!-- Related Tools Section -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Related Tools</h2>
+                <p>Explore more calculators to help with your home buying journey.</p>
+            </div>
+            <div class="tools-grid" style="grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));">
+                <div class="tool-card">
+                    <div class="icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="2" y="5" width="20" height="14" rx="2"></rect>
+                            <line x1="2" y1="10" x2="22" y2="10"></line>
+                        </svg>
+                    </div>
+                    <h3>Loan Repayment Calculator</h3>
+                    <p>Calculate payments for personal loans, auto loans, and other installment loans.</p>
+                    <a href="loan-repayment-calculator.html" class="btn btn-primary">Use Calculator</a>
+                </div>
+                <div class="tool-card">
+                    <div class="icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                        </svg>
+                    </div>
+                    <h3>Stamp Duty Calculator</h3>
+                    <p>Calculate UK Stamp Duty Land Tax for your property purchase.</p>
+                    <a href="stamp-duty-calculator.html" class="btn btn-primary">Use Calculator</a>
+                </div>
+                <div class="tool-card">
+                    <div class="icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="12" y1="1" x2="12" y2="23"></line>
+                            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                        </svg>
+                    </div>
+                    <h3>Savings Calculator</h3>
+                    <p>See how much you need to save for your down payment goal.</p>
+                    <a href="savings-interest-calculator.html" class="btn btn-primary">Use Calculator</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Ready to Explore Your Options?</h2>
+            <p>Browse all our free financial calculators to plan your home purchase with confidence.</p>
+            <a href="../tools.html" class="btn btn-secondary btn-lg">View All Tools</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="../index.html" class="logo">
+                        <img src="https://i.ibb.co/Dg9Nbkty/toolkitproo-logo.png" alt="ToolkitProo Logo">
+                        ToolkitProo
+                    </a>
+                    <p>Free online calculators and tools to help you make better financial decisions.</p>
+                </div>
+                <div class="footer-links-col">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="../index.html">Home</a></li>
+                        <li><a href="../tools.html">Tools</a></li>
+                        <li><a href="../blog.html">Blog</a></li>
+                        <li><a href="../about.html">About</a></li>
+                        <li><a href="../contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links-col">
+                    <h4>Popular Tools</h4>
+                    <ul class="footer-links">
+                        <li><a href="mortgage-calculator.html">Mortgage Calculator</a></li>
+                        <li><a href="loan-repayment-calculator.html">Loan Calculator</a></li>
+                        <li><a href="savings-interest-calculator.html">Savings Calculator</a></li>
+                        <li><a href="vat-calculator.html">VAT Calculator</a></li>
+                        <li><a href="roi-calculator.html">ROI Calculator</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links-col">
+                    <h4>Legal</h4>
+                    <ul class="footer-links">
+                        <li><a href="../faq.html">FAQ</a></li>
+                        <li><a href="../privacy-policy.html">Privacy Policy</a></li>
+                        <li><a href="../terms.html">Terms & Conditions</a></li>
+                        <li><a href="../disclaimer.html">Disclaimer</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 ToolkitProo. All rights reserved.</p>
+                <p>Owned by John Smith | Contact: toolix5@gmail.com | 03147867753</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/tools.js"></script>
+    <script>
+        function calculateMortgage(e) {
+            e.preventDefault();
+            
+            const homePrice = parseFloat(document.getElementById('homePrice').value) || 0;
+            const downPayment = parseFloat(document.getElementById('downPayment').value) || 0;
+            const interestRate = parseFloat(document.getElementById('interestRate').value) || 0;
+            const loanTerm = parseInt(document.getElementById('loanTerm').value) || 30;
+            const propertyTax = parseFloat(document.getElementById('propertyTax').value) || 0;
+            const homeInsurance = parseFloat(document.getElementById('homeInsurance').value) || 0;
+            
+            const loanAmount = homePrice - downPayment;
+            const monthlyRate = interestRate / 100 / 12;
+            const numPayments = loanTerm * 12;
+            
+            let monthlyPI = 0;
+            if (interestRate === 0) {
+                monthlyPI = loanAmount / numPayments;
+            } else {
+                monthlyPI = loanAmount * (monthlyRate * Math.pow(1 + monthlyRate, numPayments)) / 
+                           (Math.pow(1 + monthlyRate, numPayments) - 1);
+            }
+            
+            const monthlyTax = propertyTax / 12;
+            const monthlyInsurance = homeInsurance / 12;
+            const totalMonthly = monthlyPI + monthlyTax + monthlyInsurance;
+            const totalCost = totalMonthly * numPayments;
+            const totalInterest = totalCost - loanAmount;
+            
+            const payoffDate = new Date();
+            payoffDate.setFullYear(payoffDate.getFullYear() + loanTerm);
+            
+            document.getElementById('monthlyPayment').textContent = '$' + totalMonthly.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+            document.getElementById('loanAmount').textContent = '$' + loanAmount.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+            document.getElementById('totalInterest').textContent = '$' + totalInterest.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+            document.getElementById('totalCost').textContent = '$' + totalCost.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+            document.getElementById('payoffDate').textContent = payoffDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+            
+            document.getElementById('defaultResult').style.display = 'none';
+            document.getElementById('resultSection').style.display = 'block';
+        }
+    </script>
+</body>
+</html>

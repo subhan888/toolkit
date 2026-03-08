@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice Generator | Free Professional Invoice Creator | ToolkitProo</title>
+    <meta name="description" content="Free invoice generator to create professional invoices instantly. Add your business details, items, and download or print your invoice.">
+    <meta name="keywords" content="invoice generator, free invoice creator, professional invoice, invoice template, online invoice maker">
+    <meta name="author" content="John Smith">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://toolkitproo.online/tools/invoice-generator.html">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Invoice Generator | Free Professional Invoice Creator">
+    <meta property="og:description" content="Free invoice generator to create professional invoices instantly.">
+    <meta property="og:url" content="https://toolkitproo.online/tools/invoice-generator.html">
+    <meta property="og:type" content="website">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Invoice Generator | ToolkitProo">
+    <meta name="twitter:description" content="Free professional invoice creator.">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="https://i.ibb.co/Dg9Nbkty/toolkitproo-logo.png">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .invoice-preview {
+            background: white;
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-xl);
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+        .invoice-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+        .invoice-company h2 {
+            margin-bottom: 0.5rem;
+        }
+        .invoice-details {
+            text-align: right;
+        }
+        .invoice-to {
+            margin-bottom: 2rem;
+        }
+        .invoice-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 2rem;
+        }
+        .invoice-table th,
+        .invoice-table td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .invoice-table th {
+            background: var(--bg-secondary);
+            font-weight: 600;
+        }
+        .invoice-totals {
+            text-align: right;
+        }
+        .invoice-totals table {
+            margin-left: auto;
+        }
+        .invoice-totals td {
+            padding: 0.5rem 1rem;
+        }
+        .invoice-totals .total-row {
+            font-weight: 700;
+            font-size: 1.25rem;
+            border-top: 2px solid var(--border-color);
+        }
+        .item-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            align-items: end;
+        }
+        @media print {
+            .navbar, .breadcrumbs, .hero, .section-alt, .cta-section, .footer, .calculator-form, .btn {
+                display: none !important;
+            }
+            .invoice-preview {
+                border: none;
+                padding: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="../index.html" class="logo">
+                <img src="https://i.ibb.co/Dg9Nbkty/toolkitproo-logo.png" alt="ToolkitProo Logo">
+                ToolkitProo
+            </a>
+            <ul class="nav-links">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../tools.html">Tools</a></li>
+                <li><a href="../blog.html">Blog</a></li>
+                <li><a href="../about.html">About</a></li>
+                <li><a href="../contact.html">Contact</a></li>
+            </ul>
+            <button class="mobile-menu-btn" aria-label="Toggle menu">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Breadcrumbs -->
+    <nav class="breadcrumbs">
+        <div class="container">
+            <ol>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../tools.html">Tools</a></li>
+                <li>Invoice Generator</li>
+            </ol>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" style="padding: 3rem 0;">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Invoice Generator</h1>
+                <p>Create professional invoices in seconds. Add your business details, line items, and download or print instantly.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Calculator Section -->
+    <section class="calculator-section">
+        <div class="container">
+            <div class="calculator-form" style="max-width: 900px; margin: 0 auto;">
+                <h3>Create Your Invoice</h3>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="companyName">Your Company Name</label>
+                        <input type="text" id="companyName" placeholder="Your Business Ltd" oninput="updateInvoice()">
+                    </div>
+                    <div class="form-group">
+                        <label for="invoiceNumber">Invoice Number</label>
+                        <input type="text" id="invoiceNumber" placeholder="INV-001" oninput="updateInvoice()">
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="companyEmail">Your Email</label>
+                        <input type="email" id="companyEmail" placeholder="your@email.com" oninput="updateInvoice()">
+                    </div>
+                    <div class="form-group">
+                        <label for="invoiceDate">Invoice Date</label>
+                        <input type="date" id="invoiceDate" oninput="updateInvoice()">
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="companyPhone">Your Phone</label>
+                        <input type="tel" id="companyPhone" placeholder="+1 (555) 123-4567" oninput="updateInvoice()">
+                    </div>
+                    <div class="form-group">
+                        <label for="dueDate">Due Date</label>
+                        <input type="date" id="dueDate" oninput="updateInvoice()">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="clientName">Bill To (Client Name)</label>
+                    <input type="text" id="clientName" placeholder="Client Company Ltd" oninput="updateInvoice()">
+                </div>
+                
+                <div class="form-group">
+                    <label for="clientAddress">Client Address</label>
+                    <textarea id="clientAddress" rows="3" placeholder="123 Client Street&#10;City, State 12345&#10;Country" oninput="updateInvoice()"></textarea>
+                </div>
+                
+                <h4 style="margin-top: 2rem; margin-bottom: 1rem;">Line Items</h4>
+                <div id="lineItems">
+                    <div class="item-row">
+                        <div>
+                            <label>Description</label>
+                            <input type="text" class="item-desc" placeholder="Product or service description" oninput="updateInvoice()">
+                        </div>
+                        <div>
+                            <label>Qty</label>
+                            <input type="number" class="item-qty" placeholder="1" min="1" value="1" oninput="updateInvoice()">
+                        </div>
+                        <div>
+                            <label>Price</label>
+                            <input type="number" class="item-price" placeholder="0.00" min="0" step="0.01" oninput="updateInvoice()">
+                        </div>
+                        <div>
+                            <label>Amount</label>
+                            <input type="text" class="item-amount" readonly value="$0.00">
+                        </div>
+                    </div>
+                </div>
+                
+                <button type="button" class="btn btn-secondary" onclick="addLineItem()" style="margin-bottom: 1.5rem;">+ Add Line Item</button>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="taxRate">Tax Rate (%)</label>
+                        <input type="number" id="taxRate" placeholder="20" min="0" max="100" step="0.01" oninput="updateInvoice()">
+                    </div>
+                    <div class="form-group">
+                        <label for="currency">Currency</label>
+                        <select id="currency" onchange="updateInvoice()">
+                            <option value="$">USD ($)</option>
+                            <option value="£">GBP (£)</option>
+                            <option value="€">EUR (€)</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="notes">Notes / Terms</label>
+                    <textarea id="notes" rows="2" placeholder="Payment terms, thank you message, etc." oninput="updateInvoice()"></textarea>
+                </div>
+                
+                <button type="button" class="btn btn-primary btn-lg" onclick="printInvoice()" style="width: 100%;">Print / Save as PDF</button>
+            </div>
+
+            <!-- Invoice Preview -->
+            <div class="invoice-preview" id="invoicePreview">
+                <div class="invoice-header">
+                    <div class="invoice-company">
+                        <h2 id="previewCompanyName">Your Company Name</h2>
+                        <p id="previewCompanyEmail">your@email.com</p>
+                        <p id="previewCompanyPhone">+1 (555) 123-4567</p>
+                    </div>
+                    <div class="invoice-details">
+                        <h3>INVOICE</h3>
+                        <p><strong>Invoice #:</strong> <span id="previewInvoiceNumber">INV-001</span></p>
+                        <p><strong>Date:</strong> <span id="previewInvoiceDate">-</span></p>
+                        <p><strong>Due Date:</strong> <span id="previewDueDate">-</span></p>
+                    </div>
+                </div>
+                
+                <div class="invoice-to">
+                    <h4>Bill To:</h4>
+                    <p id="previewClientName" style="font-weight: 600;">Client Company Ltd</p>
+                    <p id="previewClientAddress" style="white-space: pre-line;">123 Client Street<br>City, State 12345<br>Country</p>
+                </div>
+                
+                <table class="invoice-table">
+                    <thead>
+                        <tr>
+                            <th>Description</th>
+                            <th>Quantity</th>
+                            <th>Unit Price</th>
+                            <th>Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody id="previewItems">
+                        <tr>
+                            <td>Product or service description</td>
+                            <td>1</td>
+                            <td>$0.00</td>
+                            <td>$0.00</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div class="invoice-totals">
+                    <table>
+                        <tr>
+                            <td>Subtotal:</td>
+                            <td id="previewSubtotal">$0.00</td>
+                        </tr>
+                        <tr>
+                            <td>Tax:</td>
+                            <td id="previewTax">$0.00</td>
+                        </tr>
+                        <tr class="total-row">
+                            <td>Total:</td>
+                            <td id="previewTotal">$0.00</td>
+                        </tr>
+                    </table>
+                </div>
+                
+                <div style="margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--border-color);">
+                    <p id="previewNotes" style="color: var(--text-secondary);">Payment terms, thank you message, etc.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="../index.html" class="logo">
+                        <img src="https://i.ibb.co/Dg9Nbkty/toolkitproo-logo.png" alt="ToolkitProo Logo">
+                        ToolkitProo
+                    </a>
+                    <p>Free online calculators and tools to help you make better financial decisions.</p>
+                </div>
+                <div class="footer-links-col">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="../index.html">Home</a></li>
+                        <li><a href="../tools.html">Tools</a></li>
+                        <li><a href="../blog.html">Blog</a></li>
+                        <li><a href="../about.html">About</a></li>
+                        <li><a href="../contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links-col">
+                    <h4>Popular Tools</h4>
+                    <ul class="footer-links">
+                        <li><a href="mortgage-calculator.html">Mortgage Calculator</a></li>
+                        <li><a href="loan-repayment-calculator.html">Loan Calculator</a></li>
+                        <li><a href="savings-interest-calculator.html">Savings Calculator</a></li>
+                        <li><a href="vat-calculator.html">VAT Calculator</a></li>
+                        <li><a href="roi-calculator.html">ROI Calculator</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links-col">
+                    <h4>Legal</h4>
+                    <ul class="footer-links">
+                        <li><a href="../faq.html">FAQ</a></li>
+                        <li><a href="../privacy-policy.html">Privacy Policy</a></li>
+                        <li><a href="../terms.html">Terms & Conditions</a></li>
+                        <li><a href="../disclaimer.html">Disclaimer</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 ToolkitProo. All rights reserved.</p>
+                <p>Owned by John Smith | Contact: toolix5@gmail.com | 03147867753</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/tools.js"></script>
+    <script>
+        // Set default dates
+        document.getElementById('invoiceDate').valueAsDate = new Date();
+        const dueDate = new Date();
+        dueDate.setDate(dueDate.getDate() + 30);
+        document.getElementById('dueDate').valueAsDate = dueDate;
+        
+        function updateInvoice() {
+            const currency = document.getElementById('currency').value;
+            
+            // Update header
+            document.getElementById('previewCompanyName').textContent = document.getElementById('companyName').value || 'Your Company Name';
+            document.getElementById('previewCompanyEmail').textContent = document.getElementById('companyEmail').value || 'your@email.com';
+            document.getElementById('previewCompanyPhone').textContent = document.getElementById('companyPhone').value || '+1 (555) 123-4567';
+            document.getElementById('previewInvoiceNumber').textContent = document.getElementById('invoiceNumber').value || 'INV-001';
+            
+            const invDate = document.getElementById('invoiceDate').value;
+            document.getElementById('previewInvoiceDate').textContent = invDate ? new Date(invDate).toLocaleDateString() : '-';
+            
+            const due = document.getElementById('dueDate').value;
+            document.getElementById('previewDueDate').textContent = due ? new Date(due).toLocaleDateString() : '-';
+            
+            // Update client
+            document.getElementById('previewClientName').textContent = document.getElementById('clientName').value || 'Client Company Ltd';
+            document.getElementById('previewClientAddress').textContent = document.getElementById('clientAddress').value || '123 Client Street\nCity, State 12345\nCountry';
+            
+            // Update items
+            const itemRows = document.querySelectorAll('.item-row');
+            let itemsHtml = '';
+            let subtotal = 0;
+            
+            itemRows.forEach(row => {
+                const desc = row.querySelector('.item-desc').value || 'Product or service description';
+                const qty = parseFloat(row.querySelector('.item-qty').value) || 0;
+                const price = parseFloat(row.querySelector('.item-price').value) || 0;
+                const amount = qty * price;
+                subtotal += amount;
+                
+                row.querySelector('.item-amount').value = currency + amount.toFixed(2);
+                
+                itemsHtml += `<tr>
+                    <td>${desc}</td>
+                    <td>${qty}</td>
+                    <td>${currency}${price.toFixed(2)}</td>
+                    <td>${currency}${amount.toFixed(2)}</td>
+                </tr>`;
+            });
+            
+            document.getElementById('previewItems').innerHTML = itemsHtml || '<tr><td colspan="4">No items added</td></tr>';
+            
+            // Calculate totals
+            const taxRate = parseFloat(document.getElementById('taxRate').value) || 0;
+            const tax = subtotal * (taxRate / 100);
+            const total = subtotal + tax;
+            
+            document.getElementById('previewSubtotal').textContent = currency + subtotal.toFixed(2);
+            document.getElementById('previewTax').textContent = currency + tax.toFixed(2);
+            document.getElementById('previewTotal').textContent = currency + total.toFixed(2);
+            
+            // Update notes
+            document.getElementById('previewNotes').textContent = document.getElementById('notes').value || 'Payment terms, thank you message, etc.';
+        }
+        
+        function addLineItem() {
+            const container = document.getElementById('lineItems');
+            const newRow = document.createElement('div');
+            newRow.className = 'item-row';
+            newRow.innerHTML = `
+                <div>
+                    <input type="text" class="item-desc" placeholder="Product or service description" oninput="updateInvoice()">
+                </div>
+                <div>
+                    <input type="number" class="item-qty" placeholder="1" min="1" value="1" oninput="updateInvoice()">
+                </div>
+                <div>
+                    <input type="number" class="item-price" placeholder="0.00" min="0" step="0.01" oninput="updateInvoice()">
+                </div>
+                <div style="display: flex; gap: 0.5rem;">
+                    <input type="text" class="item-amount" readonly value="$0.00" style="flex: 1;">
+                    <button type="button" onclick="this.closest('.item-row').remove(); updateInvoice();" style="background: var(--error-color); color: white; border: none; border-radius: var(--radius-md); padding: 0.5rem; cursor: pointer;">×</button>
+                </div>
+            `;
+            container.appendChild(newRow);
+        }
+        
+        function printInvoice() {
+            window.print();
+        }
+        
+        // Initialize
+        updateInvoice();
+    </script>
+</body>
+</html>

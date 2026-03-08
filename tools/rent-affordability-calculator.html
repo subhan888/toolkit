@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rent Affordability Calculator | How Much Rent Can I Afford? | ToolkitProo</title>
+    <meta name="description" content="Free rent affordability calculator. Determine how much rent you can afford based on your income and expenses. Plan your housing budget wisely.">
+    <meta name="keywords" content="rent affordability calculator, how much rent can I afford, rent budget calculator, housing budget, rental calculator">
+    <meta name="author" content="John Smith">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://toolkitproo.online/tools/rent-affordability-calculator.html">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Rent Affordability Calculator | How Much Rent Can I Afford?">
+    <meta property="og:description" content="Free calculator to determine how much rent you can afford.">
+    <meta property="og:url" content="https://toolkitproo.online/tools/rent-affordability-calculator.html">
+    <meta property="og:type" content="website">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Rent Affordability Calculator | ToolkitProo">
+    <meta name="twitter:description" content="Free rent affordability calculator.">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="https://i.ibb.co/Dg9Nbkty/toolkitproo-logo.png">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="../index.html" class="logo">
+                <img src="https://i.ibb.co/Dg9Nbkty/toolkitproo-logo.png" alt="ToolkitProo Logo">
+                ToolkitProo
+            </a>
+            <ul class="nav-links">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../tools.html">Tools</a></li>
+                <li><a href="../blog.html">Blog</a></li>
+                <li><a href="../about.html">About</a></li>
+                <li><a href="../contact.html">Contact</a></li>
+            </ul>
+            <button class="mobile-menu-btn" aria-label="Toggle menu">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Breadcrumbs -->
+    <nav class="breadcrumbs">
+        <div class="container">
+            <ol>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../tools.html">Tools</a></li>
+                <li>Rent Affordability Calculator</li>
+            </ol>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" style="padding: 3rem 0;">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Rent Affordability Calculator</h1>
+                <p>Determine how much rent you can afford based on your income and expenses. Plan your housing budget wisely.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Calculator Section -->
+    <section class="calculator-section">
+        <div class="container">
+            <div class="calculator-container">
+                <!-- Calculator Form -->
+                <div class="calculator-form">
+                    <h3>Calculate Affordable Rent</h3>
+                    <form id="rentForm" onsubmit="calculateRent(event)">
+                        <div class="form-group">
+                            <label for="monthlyIncome">Monthly Gross Income ($)</label>
+                            <input type="number" id="monthlyIncome" placeholder="5000" min="0" step="100" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="monthlyDebts">Monthly Debt Payments ($)</label>
+                            <input type="number" id="monthlyDebts" placeholder="500" min="0" step="50">
+                            <small style="color: var(--text-light);">Credit cards, loans, car payments, etc.</small>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="otherExpenses">Other Monthly Expenses ($)</label>
+                            <input type="number" id="otherExpenses" placeholder="800" min="0" step="50">
+                            <small style="color: var(--text-light);">Utilities, groceries, transportation, etc.</small>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="savingsGoal">Monthly Savings Goal ($)</label>
+                            <input type="number" id="savingsGoal" placeholder="500" min="0" step="50">
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary btn-lg" style="width: 100%;">Calculate</button>
+                    </form>
+                </div>
+
+                <!-- Results -->
+                <div class="calculator-result" id="resultSection" style="display: none;">
+                    <h3>Your Rent Affordability</h3>
+                    
+                    <div style="margin-bottom: 2rem;">
+                        <div class="result-label">Maximum Recommended Rent</div>
+                        <div class="result-value" id="maxRent">$0</div>
+                    </div>
+                    
+                    <div style="margin-bottom: 2rem;">
+                        <div class="result-label">Conservative Rent Estimate</div>
+                        <div class="result-value" style="font-size: 1.75rem;" id="conservativeRent">$0</div>
+                    </div>
+                    
+                    <div style="margin-bottom: 2rem;">
+                        <div class="result-label">Rent as % of Income</div>
+                        <div class="result-value" style="font-size: 1.5rem;" id="rentPercentage">0%</div>
+                    </div>
+                    
+                    <div style="padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.2);">
+                        <div class="result-label">Remaining After Rent</div>
+                        <div style="font-size: 1.25rem; font-weight: 600;" id="remainingBudget">$0</div>
+                    </div>
+                </div>
+
+                <!-- Default Result State -->
+                <div class="calculator-result" id="defaultResult">
+                    <h3>Your Results Will Appear Here</h3>
+                    <p style="color: rgba(255,255,255,0.7);">Enter your income and expenses to see how much rent you can afford.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Detailed Content Section -->
+    <section class="section section-alt">
+        <div class="container">
+            <article class="tool-content">
+                <h2>What is a Rent Affordability Calculator?</h2>
+                <p>A rent affordability calculator helps you determine how much you can realistically spend on rent based on your income, existing debts, and other monthly expenses. This tool is essential for anyone looking to rent a home or apartment, as it prevents you from committing to a lease that could strain your finances.</p>
+                
+                <p>Financial experts generally recommend that your monthly rent should not exceed 30% of your gross monthly income. This is known as the "30% rule" and has been a standard guideline for decades. However, this calculator goes further by also considering your debt obligations and other expenses to give you a more personalized recommendation.</p>
+
+                <h2>How the Calculator Works</h2>
+                <p>The calculator uses several financial guidelines to determine affordable rent:</p>
+                
+                <h3>The 30% Rule</h3>
+                <p>This standard guideline suggests spending no more than 30% of your gross monthly income on rent. For someone earning $5,000 per month, that would be $1,500 maximum.</p>
+
+                <h3>The 50/30/20 Budget</h3>
+                <p>This popular budgeting framework suggests allocating 50% of income to needs (including rent), 30% to wants, and 20% to savings and debt repayment.</p>
+
+                <h3>Debt-to-Income Consideration</h3>
+                <p>If you have significant debt payments, the calculator adjusts your affordable rent downward to ensure your total fixed obligations remain manageable.</p>
+
+                <h2>The 30% Rule Explained</h2>
+                <p>The 30% rule has been used since the 1980s as a benchmark for housing affordability. Here's how it breaks down:</p>
+                <ul>
+                    <li><strong>Monthly Income $3,000:</strong> Max rent $900</li>
+                    <li><strong>Monthly Income $4,000:</strong> Max rent $1,200</li>
+                    <li><strong>Monthly Income $5,000:</strong> Max rent $1,500</li>
+                    <li><strong>Monthly Income $6,000:</strong> Max rent $1,800</li>
+                    <li><strong>Monthly Income $8,000:</strong> Max rent $2,400</li>
+                </ul>
+
+                <h2>Factors Affecting Rent Affordability</h2>
+                <p>Several factors can influence how much rent you can afford:</p>
+                
+                <h3>Location</h3>
+                <p>In high-cost cities, you may need to spend more than 30% on rent. In these cases, look for ways to reduce other expenses.</p>
+
+                <h3>Debt Obligations</h3>
+                <p>High student loans, car payments, or credit card debt reduce the amount available for rent.</p>
+
+                <h3>Savings Goals</h3>
+                <p>If you're saving for a down payment or emergency fund, you may want to spend less on rent.</p>
+
+                <h3>Transportation Costs</h3>
+                <p>Living further from work may mean cheaper rent but higher commuting costs. Factor this into your decision.</p>
+
+                <h2>Step-by-Step Guide</h2>
+                <ol>
+                    <li><strong>Enter Monthly Income:</strong> Use your gross (pre-tax) monthly income.</li>
+                    <li><strong>Add Debt Payments:</strong> Include all monthly debt obligations.</li>
+                    <li><strong>Include Other Expenses:</strong> Estimate utilities, groceries, transportation, etc.</li>
+                    <li><strong>Set Savings Goal:</strong> How much do you want to save each month?</li>
+                    <li><strong>Review Results:</strong> Use the maximum and conservative estimates to guide your search.</li>
+                </ol>
+
+                <h2>Tips for Finding Affordable Rent</h2>
+                <ul>
+                    <li>Consider roommate situations to split costs</li>
+                    <li>Look slightly outside prime locations</li>
+                    <li>Negotiate your rent, especially in slower markets</li>
+                    <li>Ask about move-in specials or discounts</li>
+                    <li>Consider smaller units or studios</li>
+                    <li>Look for rentals that include utilities</li>
+                </ul>
+
+                <h2>Frequently Asked Questions</h2>
+                
+                <h3>Is the 30% rule realistic?</h3>
+                <p>In many high-cost cities, the 30% rule is difficult to follow. Some people spend 40-50% of income on rent. If this is your situation, focus on reducing other expenses and building your income.</p>
+
+                <h3>Should I use gross or net income?</h3>
+                <p>The 30% rule uses gross income, but some experts recommend using net (take-home) pay for a more realistic budget. This calculator uses gross income as the standard.</p>
+
+                <h3>What if I have irregular income?</h3>
+                <p>Use your average monthly income over the past 6-12 months. In months with higher income, save the excess for leaner months.</p>
+
+                <h3>Do landlords use the 30% rule?</h3>
+                <p>Many landlords require tenants to earn 2.5-3 times the monthly rent (which aligns with the 30-40% range). They may verify income through pay stubs or tax returns.</p>
+            </article>
+        </div>
+    </section>
+
+    <!-- Related Tools -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Related Tools</h2>
+            </div>
+            <div class="tools-grid" style="grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));">
+                <div class="tool-card">
+                    <div class="icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                        </svg>
+                    </div>
+                    <h3>Mortgage Calculator</h3>
+                    <p>Compare renting vs buying with our mortgage calculator.</p>
+                    <a href="mortgage-calculator.html" class="btn btn-primary">Use Calculator</a>
+                </div>
+                <div class="tool-card">
+                    <div class="icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                            <path d="M2 17l10 5 10-5"></path>
+                            <path d="M2 12l10 5 10-5"></path>
+                        </svg>
+                    </div>
+                    <h3>Property ROI</h3>
+                    <p>Calculate returns if you're considering buying instead.</p>
+                    <a href="property-roi-calculator.html" class="btn btn-primary">Use Calculator</a>
+                </div>
+                <div class="tool-card">
+                    <div class="icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="12" y1="1" x2="12" y2="23"></line>
+                            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                        </svg>
+                    </div>
+                    <h3>Savings Calculator</h3>
+                    <p>Plan your savings for a future home down payment.</p>
+                    <a href="savings-interest-calculator.html" class="btn btn-primary">Use Calculator</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Planning Your Housing Budget?</h2>
+            <p>Explore all our property and financial calculators.</p>
+            <a href="../tools.html" class="btn btn-secondary btn-lg">View All Tools</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="../index.html" class="logo">
+                        <img src="https://i.ibb.co/Dg9Nbkty/toolkitproo-logo.png" alt="ToolkitProo Logo">
+                        ToolkitProo
+                    </a>
+                    <p>Free online calculators and tools to help you make better financial decisions.</p>
+                </div>
+                <div class="footer-links-col">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="../index.html">Home</a></li>
+                        <li><a href="../tools.html">Tools</a></li>
+                        <li><a href="../blog.html">Blog</a></li>
+                        <li><a href="../about.html">About</a></li>
+                        <li><a href="../contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links-col">
+                    <h4>Popular Tools</h4>
+                    <ul class="footer-links">
+                        <li><a href="mortgage-calculator.html">Mortgage Calculator</a></li>
+                        <li><a href="loan-repayment-calculator.html">Loan Calculator</a></li>
+                        <li><a href="savings-interest-calculator.html">Savings Calculator</a></li>
+                        <li><a href="vat-calculator.html">VAT Calculator</a></li>
+                        <li><a href="roi-calculator.html">ROI Calculator</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links-col">
+                    <h4>Legal</h4>
+                    <ul class="footer-links">
+                        <li><a href="../faq.html">FAQ</a></li>
+                        <li><a href="../privacy-policy.html">Privacy Policy</a></li>
+                        <li><a href="../terms.html">Terms & Conditions</a></li>
+                        <li><a href="../disclaimer.html">Disclaimer</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 ToolkitProo. All rights reserved.</p>
+                <p>Owned by John Smith | Contact: toolix5@gmail.com | 03147867753</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/tools.js"></script>
+    <script>
+        function calculateRent(e) {
+            e.preventDefault();
+            
+            const income = parseFloat(document.getElementById('monthlyIncome').value) || 0;
+            const debts = parseFloat(document.getElementById('monthlyDebts').value) || 0;
+            const expenses = parseFloat(document.getElementById('otherExpenses').value) || 0;
+            const savings = parseFloat(document.getElementById('savingsGoal').value) || 0;
+            
+            // 30% rule
+            const maxRent = income * 0.30;
+            
+            // Conservative estimate considering debts and savings
+            const availableForHousing = income - debts - expenses - savings;
+            const conservativeRent = Math.max(0, Math.min(maxRent, availableForHousing * 0.8));
+            
+            const rentPercentage = income > 0 ? (maxRent / income) * 100 : 0;
+            const remaining = income - maxRent - debts - expenses - savings;
+            
+            document.getElementById('maxRent').textContent = '$' + maxRent.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+            document.getElementById('conservativeRent').textContent = '$' + conservativeRent.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+            document.getElementById('rentPercentage').textContent = rentPercentage.toFixed(0) + '%';
+            document.getElementById('remainingBudget').textContent = '$' + remaining.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+            
+            document.getElementById('defaultResult').style.display = 'none';
+            document.getElementById('resultSection').style.display = 'block';
+        }
+    </script>
+</body>
+</html>

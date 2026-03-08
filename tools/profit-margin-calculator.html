@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profit Margin Calculator | Free Business Profit Calculator | ToolkitProo</title>
+    <meta name="description" content="Free profit margin calculator to calculate gross profit, net profit, and profit margins. Essential tool for pricing products and services.">
+    <meta name="keywords" content="profit margin calculator, gross profit calculator, net profit calculator, business profit, pricing calculator">
+    <meta name="author" content="John Smith">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://toolkitproo.online/tools/profit-margin-calculator.html">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Profit Margin Calculator | Free Business Profit Calculator">
+    <meta property="og:description" content="Free profit margin calculator to calculate gross and net profit margins.">
+    <meta property="og:url" content="https://toolkitproo.online/tools/profit-margin-calculator.html">
+    <meta property="og:type" content="website">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Profit Margin Calculator | ToolkitProo">
+    <meta name="twitter:description" content="Free profit margin calculator for your business.">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="https://i.ibb.co/Dg9Nbkty/toolkitproo-logo.png">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="../index.html" class="logo">
+                <img src="https://i.ibb.co/Dg9Nbkty/toolkitproo-logo.png" alt="ToolkitProo Logo">
+                ToolkitProo
+            </a>
+            <ul class="nav-links">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../tools.html">Tools</a></li>
+                <li><a href="../blog.html">Blog</a></li>
+                <li><a href="../about.html">About</a></li>
+                <li><a href="../contact.html">Contact</a></li>
+            </ul>
+            <button class="mobile-menu-btn" aria-label="Toggle menu">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Breadcrumbs -->
+    <nav class="breadcrumbs">
+        <div class="container">
+            <ol>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../tools.html">Tools</a></li>
+                <li>Profit Margin Calculator</li>
+            </ol>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" style="padding: 3rem 0;">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Profit Margin Calculator</h1>
+                <p>Calculate gross profit, net profit, and profit margins to price your products and services correctly.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Calculator Section -->
+    <section class="calculator-section">
+        <div class="container">
+            <div class="calculator-container">
+                <!-- Calculator Form -->
+                <div class="calculator-form">
+                    <h3>Calculate Your Profit Margin</h3>
+                    <form id="profitForm" onsubmit="calculateProfit(event)">
+                        <div class="form-group">
+                            <label for="revenue">Revenue / Selling Price ($)</label>
+                            <input type="number" id="revenue" placeholder="1000" min="0" step="0.01" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="costOfGoods">Cost of Goods Sold ($)</label>
+                            <input type="number" id="costOfGoods" placeholder="600" min="0" step="0.01" required>
+                            <small style="color: var(--text-light);">Direct costs to produce the product/service</small>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="operatingExpenses">Operating Expenses ($)</label>
+                            <input type="number" id="operatingExpenses" placeholder="200" min="0" step="0.01">
+                            <small style="color: var(--text-light);">Overhead, marketing, salaries, etc.</small>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary btn-lg" style="width: 100%;">Calculate Profit</button>
+                    </form>
+                </div>
+
+                <!-- Results -->
+                <div class="calculator-result" id="resultSection" style="display: none;">
+                    <h3>Your Profit Analysis</h3>
+                    
+                    <div style="margin-bottom: 2rem;">
+                        <div class="result-label">Gross Profit</div>
+                        <div class="result-value" style="font-size: 1.75rem;" id="grossProfit">$0</div>
+                        <div style="font-size: 1rem; color: var(--accent-light);" id="grossMargin">0%</div>
+                    </div>
+                    
+                    <div style="margin-bottom: 2rem;">
+                        <div class="result-label">Net Profit</div>
+                        <div class="result-value" style="font-size: 1.75rem; color: var(--success-light);" id="netProfit">$0</div>
+                        <div style="font-size: 1rem; color: var(--accent-light);" id="netMargin">0%</div>
+                    </div>
+                    
+                    <div style="padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.2);">
+                        <div class="result-label">Profit Markup</div>
+                        <div style="font-size: 1.25rem; font-weight: 600;" id="markup">0%</div>
+                    </div>
+                </div>
+
+                <!-- Default Result State -->
+                <div class="calculator-result" id="defaultResult">
+                    <h3>Your Results Will Appear Here</h3>
+                    <p style="color: rgba(255,255,255,0.7);">Enter your revenue, costs, and expenses to calculate your profit margins.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Detailed Content Section -->
+    <section class="section section-alt">
+        <div class="container">
+            <article class="tool-content">
+                <h2>What is a Profit Margin Calculator?</h2>
+                <p>A profit margin calculator is an essential business tool that helps you determine the profitability of your products or services. By calculating gross profit, net profit, and various margin percentages, this tool provides crucial insights for pricing decisions, cost management, and overall business strategy.</p>
+                
+                <p>Understanding your profit margins is fundamental to business success. Whether you're a small business owner, freelancer, or running a large enterprise, knowing exactly how much profit you make on each sale helps you make informed decisions about pricing, cost control, and growth strategies.</p>
+
+                <h2>How the Profit Margin Calculator Works</h2>
+                <p>The calculator performs several important calculations:</p>
+                
+                <h3>Gross Profit Calculation</h3>
+                <p>Gross profit is the difference between your revenue and the direct costs of producing your goods or services (Cost of Goods Sold). The formula is: Gross Profit = Revenue - Cost of Goods Sold. This shows how efficiently you're producing your offerings.</p>
+
+                <h3>Gross Margin Percentage</h3>
+                <p>Gross margin percentage shows what portion of each dollar of revenue is gross profit. The formula is: Gross Margin = (Gross Profit / Revenue) × 100. Higher percentages indicate better production efficiency.</p>
+
+                <h3>Net Profit Calculation</h3>
+                <p>Net profit accounts for all business expenses, not just direct production costs. The formula is: Net Profit = Revenue - Cost of Goods Sold - Operating Expenses. This is your actual bottom-line profit.</p>
+
+                <h3>Net Margin and Markup</h3>
+                <p>Net margin shows your overall profitability as a percentage of revenue. Markup shows how much you've added to your costs to arrive at your selling price. Both metrics help with pricing strategy.</p>
+
+                <h2>Why This Profit Calculator is Useful</h2>
+                <p>Profit margin analysis serves multiple business purposes:</p>
+                
+                <h3>Pricing Strategy</h3>
+                <p>Determine the right price for your products by understanding what margins you need to achieve profitability. Test different price points to see how they affect your margins.</p>
+
+                <h3>Cost Management</h3>
+                <p>Identify when costs are eating into your profits. If margins are too low, you can focus on reducing costs or increasing prices.</p>
+
+                <h3>Product Comparison</h3>
+                <p>Compare profitability across different products or services to focus on your most lucrative offerings.</p>
+
+                <h3>Goal Setting</h3>
+                <p>Set realistic profit margin targets based on industry benchmarks and track your progress over time.</p>
+
+                <h2>Step-by-Step Guide</h2>
+                <ol>
+                    <li><strong>Enter Revenue:</strong> Input your selling price or total revenue from sales.</li>
+                    <li><strong>Add Cost of Goods Sold:</strong> Include direct costs like materials, labor, and manufacturing.</li>
+                    <li><strong>Include Operating Expenses:</strong> Add overhead costs like rent, utilities, marketing, and salaries.</li>
+                    <li><strong>Calculate:</strong> Review your gross profit, net profit, and margin percentages.</li>
+                </ol>
+
+                <h2>Example Calculation</h2>
+                <p><strong>Scenario:</strong> You sell a product for $200. It costs $120 to produce, and you have $30 in operating expenses per unit.</p>
+                <ul>
+                    <li><strong>Revenue:</strong> $200</li>
+                    <li><strong>Cost of Goods Sold:</strong> $120</li>
+                    <li><strong>Operating Expenses:</strong> $30</li>
+                    <li><strong>Gross Profit:</strong> $80 (40% gross margin)</li>
+                    <li><strong>Net Profit:</strong> $50 (25% net margin)</li>
+                    <li><strong>Markup:</strong> 66.7%</li>
+                </ul>
+
+                <h2>Good Profit Margins by Industry</h2>
+                <ul>
+                    <li><strong>Retail:</strong> 20-40% gross, 2-5% net</li>
+                    <li><strong>Restaurants:</strong> 60-70% gross, 3-9% net</li>
+                    <li><strong>Software:</strong> 70-85% gross, 15-25% net</li>
+                    <li><strong>Consulting:</strong> 50-60% gross, 15-25% net</li>
+                    <li><strong>Manufacturing:</strong> 25-35% gross, 5-10% net</li>
+                </ul>
+
+                <h2>Frequently Asked Questions</h2>
+                
+                <h3>What's the difference between margin and markup?</h3>
+                <p>Margin is profit as a percentage of revenue (profit ÷ price). Markup is profit as a percentage of cost (profit ÷ cost). A 50% margin equals a 100% markup.</p>
+
+                <h3>What is a good profit margin?</h3>
+                <p>It varies by industry. Generally, 10% net margin is average, 20% is good, and 30%+ is excellent. Compare your margins to industry benchmarks.</p>
+
+                <h3>How can I improve my profit margins?</h3>
+                <p>Increase prices, reduce costs, improve operational efficiency, focus on higher-margin products, or reduce waste and returns.</p>
+
+                <h3>Why is gross margin important?</h3>
+                <p>Gross margin shows production efficiency. If it's too low, you need to either raise prices or reduce direct costs to achieve profitability.</p>
+            </article>
+        </div>
+    </section>
+
+    <!-- Related Tools -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Related Tools</h2>
+            </div>
+            <div class="tools-grid" style="grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));">
+                <div class="tool-card">
+                    <div class="icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 2v20M2 12h20"></path>
+                        </svg>
+                    </div>
+                    <h3>VAT Calculator</h3>
+                    <p>Calculate VAT for your product pricing.</p>
+                    <a href="vat-calculator.html" class="btn btn-primary">Use Calculator</a>
+                </div>
+                <div class="tool-card">
+                    <div class="icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                            <polyline points="14 2 14 8 20 8"></polyline>
+                        </svg>
+                    </div>
+                    <h3>Invoice Generator</h3>
+                    <p>Create professional invoices for your sales.</p>
+                    <a href="invoice-generator.html" class="btn btn-primary">Use Calculator</a>
+                </div>
+                <div class="tool-card">
+                    <div class="icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="12" y1="6" x2="12" y2="12"></line>
+                            <line x1="12" y1="12" x2="16" y2="14"></line>
+                        </svg>
+                    </div>
+                    <h3>ROI Calculator</h3>
+                    <p>Calculate return on business investments.</p>
+                    <a href="roi-calculator.html" class="btn btn-primary">Use Calculator</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Maximize Your Business Profits</h2>
+            <p>Explore all our free business calculators.</p>
+            <a href="../tools.html" class="btn btn-secondary btn-lg">View All Tools</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="../index.html" class="logo">
+                        <img src="https://i.ibb.co/Dg9Nbkty/toolkitproo-logo.png" alt="ToolkitProo Logo">
+                        ToolkitProo
+                    </a>
+                    <p>Free online calculators and tools to help you make better financial decisions.</p>
+                </div>
+                <div class="footer-links-col">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="../index.html">Home</a></li>
+                        <li><a href="../tools.html">Tools</a></li>
+                        <li><a href="../blog.html">Blog</a></li>
+                        <li><a href="../about.html">About</a></li>
+                        <li><a href="../contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links-col">
+                    <h4>Popular Tools</h4>
+                    <ul class="footer-links">
+                        <li><a href="mortgage-calculator.html">Mortgage Calculator</a></li>
+                        <li><a href="loan-repayment-calculator.html">Loan Calculator</a></li>
+                        <li><a href="savings-interest-calculator.html">Savings Calculator</a></li>
+                        <li><a href="vat-calculator.html">VAT Calculator</a></li>
+                        <li><a href="roi-calculator.html">ROI Calculator</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links-col">
+                    <h4>Legal</h4>
+                    <ul class="footer-links">
+                        <li><a href="../faq.html">FAQ</a></li>
+                        <li><a href="../privacy-policy.html">Privacy Policy</a></li>
+                        <li><a href="../terms.html">Terms & Conditions</a></li>
+                        <li><a href="../disclaimer.html">Disclaimer</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 ToolkitProo. All rights reserved.</p>
+                <p>Owned by John Smith | Contact: toolix5@gmail.com | 03147867753</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/tools.js"></script>
+    <script>
+        function calculateProfit(e) {
+            e.preventDefault();
+            
+            const revenue = parseFloat(document.getElementById('revenue').value) || 0;
+            const cogs = parseFloat(document.getElementById('costOfGoods').value) || 0;
+            const expenses = parseFloat(document.getElementById('operatingExpenses').value) || 0;
+            
+            const grossProfit = revenue - cogs;
+            const grossMargin = revenue > 0 ? (grossProfit / revenue) * 100 : 0;
+            
+            const netProfit = grossProfit - expenses;
+            const netMargin = revenue > 0 ? (netProfit / revenue) * 100 : 0;
+            
+            const markup = cogs > 0 ? ((revenue - cogs) / cogs) * 100 : 0;
+            
+            document.getElementById('grossProfit').textContent = '$' + grossProfit.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+            document.getElementById('grossMargin').textContent = grossMargin.toFixed(1) + '% margin';
+            document.getElementById('netProfit').textContent = '$' + netProfit.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+            document.getElementById('netMargin').textContent = netMargin.toFixed(1) + '% margin';
+            document.getElementById('markup').textContent = markup.toFixed(1) + '%';
+            
+            document.getElementById('defaultResult').style.display = 'none';
+            document.getElementById('resultSection').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
